@@ -15,28 +15,48 @@ public class ZoneController {
     @Autowired
 
     private ZoneService zoneService;
-    @RequestMapping("/api/AddOrUpdateZone")
-    @PostMapping
-    public ResponseEntity<ZoneModel> saveOrUpdate(@RequestBody ZoneModel zone) {
-       return new ResponseEntity<ZoneModel>(zoneService.saveOrUpdate(zone), HttpStatus.ACCEPTED);
+
+    @PostMapping("/AddZone")
+    public ResponseEntity<ZoneModel> addZone(@RequestBody ZoneModel zone) {
+       return new ResponseEntity<ZoneModel>(zoneService.addZone(zone), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping("/api/FindAllZones")
-    @GetMapping
+    @GetMapping("/FindAllZones")
     public ResponseEntity<List<ZoneModel>> findAll() {
        return new ResponseEntity<List<ZoneModel>>(zoneService.findAll(), HttpStatus.ACCEPTED);
     } 
 
-    @RequestMapping("/api/DeleteZone")
-    @DeleteMapping
-    public ResponseEntity<String> delete(@RequestBody ZoneModel zone) {
-        zoneService.delete(zone);
-        return new ResponseEntity<>("Zone deleted", HttpStatus.ACCEPTED);
-}
+    @GetMapping("/FindZoneByName/{zoneName}")
+    public ResponseEntity<?> findZoneByName(@PathVariable String zoneName) {
+        ZoneModel zone = zoneService.findZoneByName(zoneName);
+        if (zone != null) {
+            return ResponseEntity.ok(zone);
+        } else {
+            String errorMessage = "Zone with name '" + zoneName + "' not found.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
 
+    @DeleteMapping("/DeleteZone/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable String id) {
+        zoneService.deleteZoneById(id);
+        return new ResponseEntity<>("Zone with ID " + id + " deleted", HttpStatus.OK);
+    }
     
-
+    @PutMapping("/UpdateZone/{id}")
+    public ResponseEntity<ZoneModel> updateZone(@PathVariable String id, @RequestBody ZoneModel updatedZone) {
+       ZoneModel existingZone = zoneService.findZoneById(id);
+       if (existingZone != null) {
+                // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
+             existingZone.setZoneName(updatedZone.getZoneName());
+                // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
     
+             ZoneModel savedZone = zoneService.addZone(existingZone);
+             return new ResponseEntity<>(savedZone, HttpStatus.OK);
+       } else {
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
+     }
 }
-
+    
 
