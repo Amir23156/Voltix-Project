@@ -20,8 +20,8 @@ public class CircuitBreakerController {
     private CircuitBreakerService circuitBreakerService; 
 
     @PostMapping("/AddCircuitBreaker")
-    public ResponseEntity<CircuitBreakerModel> addCircuitBreaker(@RequestBody CircuitBreakerModel circuitbreaker) {
-       return new ResponseEntity<CircuitBreakerModel>(circuitBreakerService.addCircuitBreaker(circuitbreaker), HttpStatus.ACCEPTED);
+    public ResponseEntity<CircuitBreakerModel> addCircuitBreaker(@RequestBody CircuitBreakerModel circuitBreaker) {
+       return new ResponseEntity<CircuitBreakerModel>(circuitBreakerService.addCircuitBreaker(circuitBreaker), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/FindAllCircuitBreaker")
@@ -51,7 +51,7 @@ public class CircuitBreakerController {
        CircuitBreakerModel existingcircuitBreaker = circuitBreakerService.findCircuitBreakerById(id);
        if (existingcircuitBreaker != null) {
                 // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
-             existingcircuitBreaker.setcircuitbreakerName(updatedcircuitBreaker.getcircuitbreakerName());
+             existingcircuitBreaker.setcircuitBreakerName(updatedcircuitBreaker.getcircuitBreakerName());
                 // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
     
             CircuitBreakerModel savedcircuitBreaker = circuitBreakerService.addCircuitBreaker(existingcircuitBreaker);

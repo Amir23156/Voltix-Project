@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor 
-@Document(collection = "circuitbreakers")
+@Document(collection = "circuitBreakers")
 public class CircuitBreakerModel {
     @Id
     private String id;
-    private String circuitbreakerName;
-    private long circuitbreakerRefrence;
+    private String circuitBreakerName;
+    private long circuitBreakerRefrence;
 
     public String getId() {
         return id;
@@ -25,19 +25,19 @@ public class CircuitBreakerModel {
         this.id = id;
     }
 
-    public String getcircuitbreakerName() {
-        return circuitbreakerName;
+    public String getcircuitBreakerName() {
+        return circuitBreakerName;
     }
 
-    public void setcircuitbreakerName(String circuitbreakerName) {
-        this.circuitbreakerName = circuitbreakerName;
+    public void setcircuitBreakerName(String circuitBreakerName) {
+        this.circuitBreakerName = circuitBreakerName;
     }
-    public long getcircuitbreakerRefrence() {
-        return circuitbreakerRefrence;
+    public long getcircuitBreakerRefrence() {
+        return circuitBreakerRefrence;
     }
 
-    public void setcircuitbreakerRefrence(long circuitbreakerRefrence) {
-        this.circuitbreakerRefrence = circuitbreakerRefrence;
+    public void setcircuitBreakerRefrence(long circuitBreakerRefrence) {
+        this.circuitBreakerRefrence = circuitBreakerRefrence;
     }
 
 
