@@ -9,5 +9,8 @@ public class MachineModel {
     @Id
     private String id;
     private String name;
+    private double consomation;
+    private String imageLink;
+    private  String mark;
 
 }

@@ -3,10 +3,11 @@ package com.example.voltix.Machine;
 import com.example.voltix.Zones.ZoneModel;
 import com.example.voltix.Zones.ZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class MachineService {
     private final MachineRepository machineRepository;
 
@@ -17,27 +18,19 @@ public class MachineService {
     public MachineModel CreateMachine(MachineModel machine)
     {return machineRepository.save(machine) ;}
 
-    public List<ZoneModel> findAll(){
-        return zoneRepository.findAll();
+    public List<MachineModel> findAll(){
+        return machineRepository.findAll();
     }
 
-    public ZoneModel findZoneByName(String zoneName) {
-        return zoneRepository.findByZoneName(zoneName);
-    }
 
-    public void deleteZoneById(String id) {
-        Optional<ZoneModel> zoneOptional = zoneRepository.findById(id);
-        if (zoneOptional.isPresent()) {
-            ZoneModel zone = zoneOptional.get();
-            zoneRepository.delete(zone);
-        } else {
-            // Handle the case when the zone with the specified ID does not exist.
-            // You can throw an exception, log a message, or take any other appropriate action.
-        }
+    public void deleteMachineById(String id) {
+            machineRepository.deleteById(id);
     }
-
-    public ZoneModel findZoneById(String zoneId) {
-        return zoneRepository.findById(zoneId).orElse(null);
+    public void updatMachine(MachineModel user) {
+        machineRepository.save(user);
+    }
+    public MachineModel findZoneById(String id) {
+        return machineRepository. findById(id).orElse(null);
     }
 
 
