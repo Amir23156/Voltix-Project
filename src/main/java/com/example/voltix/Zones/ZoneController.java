@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 
 public class ZoneController {
-    @Autowired
 
-    private ZoneService zoneService;
+    private final ZoneService zoneService;
+    @Autowired
+    public ZoneController(ZoneService zoneService) {
+        this.zoneService = zoneService;
+    }
 
     @PostMapping("/AddZone")
     public ResponseEntity<ZoneModel> addZone(@RequestBody ZoneModel zone) {
+
        return new ResponseEntity<ZoneModel>(zoneService.addZone(zone), HttpStatus.ACCEPTED);
     }
 
