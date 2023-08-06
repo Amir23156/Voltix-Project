@@ -11,6 +11,6 @@ public class MachineModel {
     private String name;
     private double consomation;
     private String imageLink;
-    private  String mark;
+    private  String marque;
 
 }
