@@ -22,6 +22,8 @@ public class ZoneModel {
     private String zoneSurface;
     private String zoneMainActivity;
     private List<String> attendanceDays;
+    private String workStartTime; 
+    private String workEndTime; 
     
 
     public String getId() {
@@ -62,6 +64,22 @@ public class ZoneModel {
     
     public void setAttendanceDays(List<String> attendanceDays) {
         this.attendanceDays = attendanceDays;
+    }
+
+    public String getWorkStartTime() {
+        return workStartTime;
+    }
+
+    public void setWorkStartTime(String workStartTime) {
+        this.workStartTime = workStartTime;
+    }
+
+    public String getWorkEndTime() {
+        return workEndTime;
+    }
+
+    public void setWorkEndTime(String workEndTime) {
+        this.workEndTime = workEndTime;
     }
     
 }

@@ -49,6 +49,11 @@ public class ZoneController {
        if (existingZone != null) {
                 // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
              existingZone.setZoneName(updatedZone.getZoneName());
+             existingZone.setZoneSurface(updatedZone.getZoneSurface());
+             existingZone.setZoneMainActivity(updatedZone.getZoneMainActivity());
+             existingZone.setAttendanceDays(updatedZone.getAttendanceDays());
+             existingZone.setWorkStartTime(updatedZone.getWorkStartTime());
+             existingZone.setWorkEndTime(updatedZone.getWorkEndTime());
                 // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
     
              ZoneModel savedZone = zoneService.addZone(existingZone);
