@@ -41,13 +41,21 @@ public class MachineController {
         return ResponseEntity.status(HttpStatus.CREATED).body(machine);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Void> updateMachine(@PathVariable String id, @RequestBody MachineModel machine) {
-        MachineModel existingMachine = machineService.findZoneById(id);
-        if (existingMachine!=null) {
-            machine.setId(id);
+
+        MachineModel existingMachine = machineService.findZoneById(machine.getId());
+
+        if (existingMachine != null) {
+            System.out.println("zzzzzzzzz");
+            System.out.println(existingMachine);
+            System.out.println(machine);
+
+            machine.setId(machine.getId());
             machineService.updatMachine(machine);
-            return ResponseEntity.noContent().build();
+            System.out.println("zzzzzzzzz");
+            System.out.println(machine);
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -59,4 +67,3 @@ public class MachineController {
         return ResponseEntity.noContent().build();
     }
 }
-

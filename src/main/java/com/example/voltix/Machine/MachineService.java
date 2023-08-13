@@ -30,6 +30,8 @@ public class MachineService {
         machineRepository.save(user);
     }
     public MachineModel findZoneById(String id) {
+        System.out.println("id");
+        System.out.println("salem"+id);
         return machineRepository. findById(id).orElse(null);
     }
 
