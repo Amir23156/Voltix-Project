@@ -52,6 +52,7 @@ public class CircuitBreakerController {
        if (existingcircuitBreaker != null) {
                 // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
              existingcircuitBreaker.setcircuitBreakerName(updatedcircuitBreaker.getcircuitBreakerName());
+             existingcircuitBreaker.setcircuitBreakerRefrence(updatedcircuitBreaker.getcircuitBreakerRefrence());
                 // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
     
             CircuitBreakerModel savedcircuitBreaker = circuitBreakerService.addCircuitBreaker(existingcircuitBreaker);

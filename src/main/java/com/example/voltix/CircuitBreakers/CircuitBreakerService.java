@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Service
@@ -33,6 +35,12 @@ public class CircuitBreakerService {
         }
     }
 
+
+    
+    public CircuitBreakerModel updateCircuitBreaker(String id , CircuitBreakerModel updatedcircuitBreaker) {
+        return circuitBreakerRepository.save(updatedcircuitBreaker);
+    }
+    
     public CircuitBreakerModel findCircuitBreakerById(String Id) {
         return circuitBreakerRepository.findById(Id).orElse(null);
     }

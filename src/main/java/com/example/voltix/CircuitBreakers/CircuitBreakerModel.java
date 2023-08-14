@@ -15,7 +15,7 @@ public class CircuitBreakerModel {
     @Id
     private String id;
     private String circuitBreakerName;
-    private long circuitBreakerRefrence;
+    private String circuitBreakerRefrence;
 
     public String getId() {
         return id;
@@ -32,11 +32,11 @@ public class CircuitBreakerModel {
     public void setcircuitBreakerName(String circuitBreakerName) {
         this.circuitBreakerName = circuitBreakerName;
     }
-    public long getcircuitBreakerRefrence() {
+    public String getcircuitBreakerRefrence() {
         return circuitBreakerRefrence;
     }
 
-    public void setcircuitBreakerRefrence(long circuitBreakerRefrence) {
+    public void setcircuitBreakerRefrence(String circuitBreakerRefrence) {
         this.circuitBreakerRefrence = circuitBreakerRefrence;
     }
 
