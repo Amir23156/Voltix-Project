@@ -23,6 +23,11 @@ public class MachineController {
     public List<MachineModel> getAllMachine() {
         return machineService.findAll();
     }
+    @GetMapping("/getForId/{id}")
+    public List<MachineModel> getMachineOfCircuitBreaker() {
+        return machineService.findAll();
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getMachineById(@PathVariable String id) {

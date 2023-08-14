@@ -13,11 +13,24 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.voltix.Machine.MachineModel;
+
 
 @RestController
 public class CircuitBreakerController {
     @Autowired
     private CircuitBreakerService circuitBreakerService; 
+
+    @GetMapping("/getMachinesForCircuitBreaker/{id}")
+
+    public ResponseEntity<List<MachineModel>> getStudentsByClassroom(@PathVariable String id) {
+        //getMachinesoFcircuitBreaker
+    System.out.println("wa sava");
+        System.out.println(id);
+
+           return new ResponseEntity<List<MachineModel>>(circuitBreakerService.getMachinesoFcircuitBreaker(id), HttpStatus.ACCEPTED);
+
+    }
 
     @PostMapping("/AddCircuitBreaker")
     public ResponseEntity<CircuitBreakerModel> addCircuitBreaker(@RequestBody CircuitBreakerModel circuitBreaker) {
@@ -51,8 +64,8 @@ public class CircuitBreakerController {
        CircuitBreakerModel existingcircuitBreaker = circuitBreakerService.findCircuitBreakerById(id);
        if (existingcircuitBreaker != null) {
                 // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
-             existingcircuitBreaker.setcircuitBreakerName(updatedcircuitBreaker.getcircuitBreakerName());
-             existingcircuitBreaker.setcircuitBreakerRefrence(updatedcircuitBreaker.getcircuitBreakerRefrence());
+             existingcircuitBreaker.setCircuitBreakerName(updatedcircuitBreaker.getCircuitBreakerName());
+             existingcircuitBreaker.setCircuitBreakerRefrence(updatedcircuitBreaker.getCircuitBreakerRefrence());
                 // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
     
             CircuitBreakerModel savedcircuitBreaker = circuitBreakerService.addCircuitBreaker(existingcircuitBreaker);
