@@ -21,14 +21,7 @@ public class CircuitBreakerService {
     public List<CircuitBreakerModel> findAll(){
            return circuitBreakerRepository.findAll();
     }
-    public List<MachineModel> getMachinesoFcircuitBreaker(@PathVariable String classroomId) {
-        CircuitBreakerModel circuitBreaker = circuitBreakerRepository.findById(classroomId)
-                .orElseThrow(() -> new RuntimeException("Classroom not found"));
-                System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-                                System.out.println(circuitBreaker);
 
-        return circuitBreaker.getMachinesListe();
-    }
 
     public CircuitBreakerModel findCircuitBreakerByName(String circuitBreakerName) {
            return circuitBreakerRepository.findByCircuitBreakerName(circuitBreakerName);
@@ -48,7 +41,20 @@ public class CircuitBreakerService {
 
     
     public CircuitBreakerModel updateCircuitBreaker(String id , CircuitBreakerModel updatedcircuitBreaker) {
-        return circuitBreakerRepository.save(updatedcircuitBreaker);
+        CircuitBreakerModel result=new CircuitBreakerModel();
+        try {
+          System.out.println("im heeeeeerrrrrrrrrrrrrrr");
+          System.out.println(updatedcircuitBreaker.getId());
+          System.out.println(updatedcircuitBreaker.toString());
+            result= circuitBreakerRepository.save(updatedcircuitBreaker);
+          System.out.println(id);
+          System.out.println(result);
+      }catch (StackOverflowError e){
+          System.out.println("ssssssssssssssssssssssssssssssss");
+          System.out.println(e);
+      }
+      //  System.out.println(updatedcircuitBreaker);
+        return result;
     }
     
     public CircuitBreakerModel findCircuitBreakerById(String Id) {

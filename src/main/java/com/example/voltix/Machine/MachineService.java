@@ -1,5 +1,6 @@
 package com.example.voltix.Machine;
 
+import com.example.voltix.CircuitBreakers.CircuitBreakerModel;
 import com.example.voltix.Zones.ZoneModel;
 import com.example.voltix.Zones.ZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,20 @@ public class MachineService {
         return machineRepository.findAll();
     }
 
+    public List<MachineModel> getMachinesByCircuitBreaker(String id) {
+        System.out.println("im here ");
+      //  System.out.println(machineRepository.findByCircuitBreaker_Id(id));
+        System.out.println("im here ");
 
+        return machineRepository.findByCircuitBreaker_Id(id);
+    }
     public void deleteMachineById(String id) {
             machineRepository.deleteById(id);
     }
     public void updatMachine(MachineModel user) {
         machineRepository.save(user);
     }
-    public MachineModel findZoneById(String id) {
+    public MachineModel findById(String id) {
         System.out.println("id");
         System.out.println("salem"+id);
         return machineRepository. findById(id).orElse(null);

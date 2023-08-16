@@ -1,6 +1,8 @@
 package com.example.voltix.Machine;
 
 import com.example.voltix.CircuitBreakers.CircuitBreakerModel;
+import com.example.voltix.CircuitBreakers.CircuitBreakerRepository;
+import com.example.voltix.CircuitBreakers.CircuitBreakerService;
 import com.example.voltix.Zones.ZoneModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,13 +14,41 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/machine")
 public class MachineController {
+    @Autowired
+    private CircuitBreakerRepository circuitBreakerRepository;
 
     private final MachineService machineService;
+    private final CircuitBreakerService circuitBreakerService;
 
     @Autowired
-    public MachineController(MachineService machineService) {
+    public MachineController(MachineService machineService,CircuitBreakerService circuitBreakerService,CircuitBreakerRepository circuitBreakerRepository ) {
+
         this.machineService = machineService;
+        this.circuitBreakerService = circuitBreakerService;
+        this.circuitBreakerRepository = circuitBreakerRepository;
     }
+
+
+
+    @GetMapping("/getMachinesForCircuitBreaker/{id}")
+
+    public ResponseEntity<List<MachineModel>> getMachinesByCircuitBreaker(@PathVariable String id) {
+        System.out.println("iiiiiiiiiiiii");
+        System.out.println("zzzzzzzzzzzz");
+      //  CircuitBreakerModel circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
+        List<MachineModel> machines = machineService.getMachinesByCircuitBreaker(id);
+
+       // List<MachineModel> students = machineService.getMachineofCircuitBreaker(circuitBreaker);
+        System.out.println("zzzzzzzzzzzz");
+        System.out.println(machines);
+
+        return ResponseEntity.ok(machines);
+
+    }
+
+
+
+
 
     @GetMapping
     public List<MachineModel> getAllMachine() {
@@ -32,7 +62,7 @@ public class MachineController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getMachineById(@PathVariable String id) {
-        MachineModel machine = machineService.findZoneById(id);
+        MachineModel machine = machineService.findById(id);
         if (machine != null) {
             return ResponseEntity.ok(machine);
         } else {
@@ -44,24 +74,13 @@ public class MachineController {
     @PostMapping
     public ResponseEntity<MachineModel> createMachine(@RequestBody MachineModel machine) {
         MachineModel createdUser = machineService.CreateMachine(machine);
-        System.out.println("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                System.out.println(createdUser);
-                System.out.println(createdUser.getCircuitBreaker());
 
-      CircuitBreakerModel circuitB=  createdUser.getCircuitBreaker();
-      try{
-circuitB.getMachinesListe().add(createdUser)  ;   }
-catch(Exception e) {
-System.out.println("geeee");
-}
-    //circuit.getMachinesListe().add( createdUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(machine);
-    }
+        return ResponseEntity.ok().build();    }
 
     @PostMapping("/{id}")
     public ResponseEntity<Void> updateMachine(@PathVariable String id, @RequestBody MachineModel machine) {
 
-        MachineModel existingMachine = machineService.findZoneById(machine.getId());
+        MachineModel existingMachine = machineService.findById(machine.getId());
 
         if (existingMachine != null) {
             System.out.println("zzzzzzzzz");

@@ -21,16 +21,7 @@ public class CircuitBreakerController {
     @Autowired
     private CircuitBreakerService circuitBreakerService; 
 
-    @GetMapping("/getMachinesForCircuitBreaker/{id}")
 
-    public ResponseEntity<List<MachineModel>> getStudentsByClassroom(@PathVariable String id) {
-        //getMachinesoFcircuitBreaker
-    System.out.println("wa sava");
-        System.out.println(id);
-
-           return new ResponseEntity<List<MachineModel>>(circuitBreakerService.getMachinesoFcircuitBreaker(id), HttpStatus.ACCEPTED);
-
-    }
 
     @PostMapping("/AddCircuitBreaker")
     public ResponseEntity<CircuitBreakerModel> addCircuitBreaker(@RequestBody CircuitBreakerModel circuitBreaker) {
