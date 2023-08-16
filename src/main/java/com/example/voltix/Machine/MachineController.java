@@ -1,5 +1,6 @@
 package com.example.voltix.Machine;
 
+import com.example.voltix.CircuitBreakers.CircuitBreakerModel;
 import com.example.voltix.Zones.ZoneModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,17 @@ public class MachineController {
     @PostMapping
     public ResponseEntity<MachineModel> createMachine(@RequestBody MachineModel machine) {
         MachineModel createdUser = machineService.CreateMachine(machine);
+        System.out.println("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                System.out.println(createdUser);
+                System.out.println(createdUser.getCircuitBreaker());
+
+      CircuitBreakerModel circuitB=  createdUser.getCircuitBreaker();
+      try{
+circuitB.getMachinesListe().add(createdUser)  ;   }
+catch(Exception e) {
+System.out.println("geeee");
+}
+    //circuit.getMachinesListe().add( createdUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(machine);
     }
 
