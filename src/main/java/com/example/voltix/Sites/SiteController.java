@@ -34,7 +34,7 @@ public class SiteController {
     } 
 
     @GetMapping("/FindSiteByName/{SiteName}")
-    public ResponseEntity<?> findSiteByName(@PathVariable String siteName) {
+    public ResponseEntity<?> findBySiteName(@PathVariable String siteName) {
         SiteModel site = siteService.findSiteByName(siteName);
         if (site != null) {
             return ResponseEntity.ok(site);
