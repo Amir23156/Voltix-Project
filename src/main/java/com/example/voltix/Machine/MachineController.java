@@ -21,24 +21,25 @@ public class MachineController {
     private final CircuitBreakerService circuitBreakerService;
 
     @Autowired
-    public MachineController(MachineService machineService,CircuitBreakerService circuitBreakerService,CircuitBreakerRepository circuitBreakerRepository ) {
+    public MachineController(MachineService machineService, CircuitBreakerService circuitBreakerService,
+            CircuitBreakerRepository circuitBreakerRepository) {
 
         this.machineService = machineService;
         this.circuitBreakerService = circuitBreakerService;
         this.circuitBreakerRepository = circuitBreakerRepository;
     }
 
-
-
     @GetMapping("/getMachinesForCircuitBreaker/{id}")
 
     public ResponseEntity<List<MachineModel>> getMachinesByCircuitBreaker(@PathVariable String id) {
         System.out.println("iiiiiiiiiiiii");
         System.out.println("zzzzzzzzzzzz");
-      //  CircuitBreakerModel circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
+        // CircuitBreakerModel
+        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
         List<MachineModel> machines = machineService.getMachinesByCircuitBreaker(id);
 
-       // List<MachineModel> students = machineService.getMachineofCircuitBreaker(circuitBreaker);
+        // List<MachineModel> students =
+        // machineService.getMachineofCircuitBreaker(circuitBreaker);
         System.out.println("zzzzzzzzzzzz");
         System.out.println(machines);
 
@@ -46,19 +47,10 @@ public class MachineController {
 
     }
 
-
-
-
-
     @GetMapping
     public List<MachineModel> getAllMachine() {
         return machineService.findAll();
     }
-    @GetMapping("/getForId/{id}")
-    public List<MachineModel> getMachineOfCircuitBreaker() {
-        return machineService.findAll();
-    }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getMachineById(@PathVariable String id) {
@@ -75,7 +67,8 @@ public class MachineController {
     public ResponseEntity<MachineModel> createMachine(@RequestBody MachineModel machine) {
         MachineModel createdUser = machineService.CreateMachine(machine);
 
-        return ResponseEntity.ok().build();    }
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/{id}")
     public ResponseEntity<Void> updateMachine(@PathVariable String id, @RequestBody MachineModel machine) {
