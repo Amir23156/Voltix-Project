@@ -13,24 +13,6 @@ public class BuildingController {
 
     private BuildingService buildingService;
 
-    @GetMapping("/getBuildingsForSite/{id}")
-
-    public ResponseEntity<List<BuildingModel>> getBuildingsForSite(@PathVariable String id) {
-        System.out.println("iiiiiiiiiiiii");
-        System.out.println("zzzzzzzzzzzz");
-        // CircuitBreakerModel
-        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
-        List<BuildingModel> buildings = buildingService.getMachinesByCircuitBreaker(id);
-
-        // List<MachineModel> students =
-        // machineService.getMachineofCircuitBreaker(circuitBreaker);
-        System.out.println("zzzzzzzzzzzz");
-        System.out.println(buildings);
-
-        return ResponseEntity.ok(buildings);
-
-    }
-
     @PostMapping("/AddBuilding")
     public ResponseEntity<BuildingModel> addBuilding(@RequestBody BuildingModel building) {
         return new ResponseEntity<BuildingModel>(buildingService.addBuilding(building), HttpStatus.ACCEPTED);

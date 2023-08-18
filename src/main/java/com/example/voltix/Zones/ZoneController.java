@@ -25,10 +25,16 @@ public class ZoneController {
        return new ResponseEntity<ZoneModel>(zoneService.addZone(zone), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/FindAllZones")
+  /*  @GetMapping("/FindAllZones")
     public ResponseEntity<List<ZoneModel>> findAll() {
        return new ResponseEntity<List<ZoneModel>>(zoneService.findAll(), HttpStatus.ACCEPTED);
-    } 
+    }  */
+    @GetMapping("/FindAllZonesForBuilding/{buildingId}")
+    public ResponseEntity<List<ZoneModel>> findAllZonesForBuilding(@PathVariable String buildingId) {
+        List<ZoneModel> zones = zoneService.findAllZonesForBuilding(buildingId);
+        return new ResponseEntity<>(zones, HttpStatus.ACCEPTED);
+}
+
 
     @GetMapping("/FindZoneByName/{zoneName}")
     public ResponseEntity<?> findZoneByName(@PathVariable String zoneName) {

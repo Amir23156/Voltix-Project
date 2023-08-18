@@ -16,14 +16,6 @@ public class BuildingService {
         return buildingRepository.save(building);
     }
 
-    public List<BuildingModel> getBuildingsBysite(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
-
-        return buildingRepository.findBySite_Id(id);
-    }
-
     public List<BuildingModel> findAll() {
         return buildingRepository.findAll();
     }
