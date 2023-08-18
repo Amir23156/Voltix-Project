@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.voltix.Machine.MachineModel;
 
-
 @RestController
 public class CircuitBreakerController {
     @Autowired
-    private CircuitBreakerService circuitBreakerService; 
-
-
+    private CircuitBreakerService circuitBreakerService;
 
     @PostMapping("/AddCircuitBreaker")
     public ResponseEntity<CircuitBreakerModel> addCircuitBreaker(@RequestBody CircuitBreakerModel circuitBreaker) {
-       return new ResponseEntity<CircuitBreakerModel>(circuitBreakerService.addCircuitBreaker(circuitBreaker), HttpStatus.ACCEPTED);
+        circuitBreaker.setLimitConsomation(0);
+
+        return new ResponseEntity<CircuitBreakerModel>(circuitBreakerService.addCircuitBreaker(circuitBreaker),
+                HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/FindAllCircuitBreaker")
     public ResponseEntity<List<CircuitBreakerModel>> findAll() {
-       return new ResponseEntity<List<CircuitBreakerModel>>(circuitBreakerService.findAll(), HttpStatus.ACCEPTED);
-    } 
+        return new ResponseEntity<List<CircuitBreakerModel>>(circuitBreakerService.findAll(), HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/FindCircuitBreakerByName/{CircuitBreakerName}")
     public ResponseEntity<?> findCircuitBreakerByName(@PathVariable String circuitBreakerName) {
@@ -51,20 +51,46 @@ public class CircuitBreakerController {
     }
 
     @PutMapping("/UpdateCircuitBreaker/{id}")
-    public ResponseEntity<CircuitBreakerModel> updateCircuitBreaker(@PathVariable String id, @RequestBody CircuitBreakerModel updatedcircuitBreaker) {
-       CircuitBreakerModel existingcircuitBreaker = circuitBreakerService.findCircuitBreakerById(id);
-       if (existingcircuitBreaker != null) {
-                // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
-             existingcircuitBreaker.setCircuitBreakerName(updatedcircuitBreaker.getCircuitBreakerName());
-             existingcircuitBreaker.setCircuitBreakerRefrence(updatedcircuitBreaker.getCircuitBreakerRefrence());
-                // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
-    
+    public ResponseEntity<CircuitBreakerModel> updateCircuitBreaker(@PathVariable String id,
+            @RequestBody CircuitBreakerModel updatedcircuitBreaker) {
+        CircuitBreakerModel existingcircuitBreaker = circuitBreakerService.findCircuitBreakerById(id);
+        if (existingcircuitBreaker != null) {
+            // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en
+            // utilisant les setters appropriés de la classe ZoneModel
+            existingcircuitBreaker.setCircuitBreakerName(updatedcircuitBreaker.getCircuitBreakerName());
+            existingcircuitBreaker.setCircuitBreakerRefrence(updatedcircuitBreaker.getCircuitBreakerRefrence());
+            existingcircuitBreaker.setLimitConsomation(updatedcircuitBreaker.getLimitConsomation());
+            // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si
+            // nécessaire
+
             CircuitBreakerModel savedcircuitBreaker = circuitBreakerService.addCircuitBreaker(existingcircuitBreaker);
             return new ResponseEntity<>(savedcircuitBreaker, HttpStatus.OK);
-       } else {
-             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-     }
-     //hhhhhhhhh
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/Updatelimit/{id}")
+    public ResponseEntity<CircuitBreakerModel> updateCircuitBreakerLimit(@PathVariable String id,
+            @RequestBody CircuitBreakerModel updatedcircuitBreaker) {
+        System.out.println("aSSSSSSSSSSSSSSSSS");
+        System.out.println(updatedcircuitBreaker);
+        CircuitBreakerModel existingcircuitBreaker = circuitBreakerService.findCircuitBreakerById(id);
+        if (existingcircuitBreaker != null) {
+            // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en
+            // utilisant les setters appropriés de la classe ZoneModel
+
+            existingcircuitBreaker.setLimitConsomation(updatedcircuitBreaker.getLimitConsomation());
+            // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si
+            // nécessaire
+            System.out.println("ppppppppppppppppppssssssppppppp");
+            System.out.println(existingcircuitBreaker);
+            CircuitBreakerModel savedcircuitBreaker = circuitBreakerService.addCircuitBreaker(existingcircuitBreaker);
+            return new ResponseEntity<>(savedcircuitBreaker, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    // hhhhhhhhh
 
 }

@@ -13,6 +13,6 @@ public class CircuitBreakerModel {
     private String id;
     private String circuitBreakerName;
     private String circuitBreakerRefrence;
-    private double LimitConsomation;
+    private double limitConsomation;
 
 }

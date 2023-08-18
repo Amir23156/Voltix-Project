@@ -1,5 +1,7 @@
 package com.example.voltix.Alerte;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +10,20 @@ import org.springframework.stereotype.Service;
 import com.example.voltix.CircuitBreakers.CircuitBreakerModel;
 import com.example.voltix.CircuitBreakers.CircuitBreakerRepository;
 import com.example.voltix.Machine.MachineModel;
+import com.example.voltix.Machine.MachineRepository;
 
 @Service
 public class AlerteService {
     private final AlerteRepository alerteRepository;
+    private final com.example.voltix.Machine.MachineRepository machineRepository;
     private final CircuitBreakerRepository circuitBreakerRepository;
 
     @Autowired
-    public AlerteService(AlerteRepository alerteRepository, CircuitBreakerRepository circuitBreakerRepository) {
+    public AlerteService(MachineRepository machineRepository, AlerteRepository alerteRepository,
+            CircuitBreakerRepository circuitBreakerRepository) {
         this.alerteRepository = alerteRepository;
         this.circuitBreakerRepository = circuitBreakerRepository;
+        this.machineRepository = machineRepository;
     }
 
     public AlerteModel CreateAlerte(AlerteModel alerte) {
@@ -28,6 +34,10 @@ public class AlerteService {
 
     public List<AlerteModel> findAll() {
         return alerteRepository.findAll();
+    }
+
+    public List<AlerteModel> findByViewedAndCause_Id(boolean viewed, String causeId) {
+        return alerteRepository.findByViewedAndCause_Id(false, causeId);
     }
 
     /*
@@ -43,6 +53,19 @@ public class AlerteService {
         alerteRepository.deleteById(id);
     }
 
+    public long getUnviewedNotificationCount() {
+        return alerteRepository.countByViewedFalse();
+    }
+
+    public void markAlertsAsViewed(List<AlerteModel> alertes) {
+        System.out.println("ooooooooooooooooooooooooooooooooooooo");
+        System.out.println(alertes);
+        for (AlerteModel alerte : alertes) {
+            alerte.setViewed(true);
+        }
+        alerteRepository.saveAll(alertes);
+    }
+
     public void updatMachine(AlerteModel user) {
         alerteRepository.save(user);
     }
@@ -51,6 +74,47 @@ public class AlerteService {
         System.out.println("id");
         System.out.println("salem" + id);
         return alerteRepository.findById(id).orElse(null);
+    }
+
+    public List<AlerteWithCauseAndTotal> getAlertesWithCauseAndTotal() {
+        List<AlerteModel> alertes = alerteRepository.findAll(); // Fetch all alerts
+        System.out.println(alertes.size());
+
+        // Reverse the order of the alertes list using Collections.reverse
+        Collections.reverse(alertes);
+
+        // Create a list to hold the results
+        List<AlerteWithCauseAndTotal> result = new ArrayList<>();
+
+        for (AlerteModel alerte : alertes) {
+            // Get the cause circuit breaker for each alert
+            CircuitBreakerModel cause = alerte.getCause();
+
+            // Calculate the total consumption for the cause circuit breaker
+            double totalConsumption = calculateTotalConsumption(cause);
+
+            // Create a new object that holds alert info along with cause and total
+            // consumption
+            AlerteWithCauseAndTotal alerteWithCauseAndTotal = new AlerteWithCauseAndTotal(alerte, cause,
+                    totalConsumption);
+
+            // Add to the result list
+            result.add(alerteWithCauseAndTotal);
+        }
+
+        return result;
+    }
+
+    private double calculateTotalConsumption(CircuitBreakerModel circuitBreaker) {
+        double totalConsumption = 0.0;
+        List<MachineModel> machines = machineRepository.findByCircuitBreaker_Id(circuitBreaker.getId());
+
+        for (MachineModel machine : machines) {
+
+            totalConsumption += machine.getConsomation();
+        }
+
+        return totalConsumption;
     }
 
 }

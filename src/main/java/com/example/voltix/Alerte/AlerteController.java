@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/Alerte")
@@ -51,6 +52,16 @@ public class AlerteController {
         return alerteService.findAll();
     }
 
+    @GetMapping("/allWithTotal")
+    public List<AlerteWithCauseAndTotal> getAllAlerteWithTotal() {
+        return alerteService.getAlertesWithCauseAndTotal();
+    }
+
+    @GetMapping("/unviewed-count")
+    public long getUnviewedNotificationCount() {
+        return alerteService.getUnviewedNotificationCount();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getMachineById(@PathVariable String id) {
         AlerteModel alerte = alerteService.findById(id);
@@ -87,6 +98,19 @@ public class AlerteController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/UpdateListe")
+    public ResponseEntity<Void> updateMachineListe(@RequestBody List<AlerteWithCauseAndTotal> alerts) {
+
+        System.out.println("ena lena");
+        System.out.println(alerts);
+        List<AlerteModel> alerteList = alerts.stream()
+                .map(AlerteWithCauseAndTotal::getAlerte)
+                .collect(Collectors.toList());
+        alerteService.markAlertsAsViewed(alerteList);
+        return ResponseEntity.ok().build();
+
     }
 
     @DeleteMapping("/{id}")

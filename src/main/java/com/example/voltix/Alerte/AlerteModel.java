@@ -13,6 +13,7 @@ public class AlerteModel {
     private String id;
     private String content;
     private String type;
+    private boolean viewed;
     @DBRef
     private CircuitBreakerModel cause;
 

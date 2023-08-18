@@ -21,24 +21,28 @@ public class ConsumptionMonitoringService {
     @Autowired
     private AlerteService alerteService; // Inject your alert service
 
-    @Scheduled(fixedRate = 6000) // Run every minute, adjust as needed
+    @Scheduled(fixedRate = 30000) // Run every minute, adjust as needed
     public void monitorConsumptionAndCreateAlerts() {
-        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhaaaaaaaaaaa");
         List<CircuitBreakerModel> circuitBreakers = circuitBreakerRepository.findAll();
 
         for (CircuitBreakerModel circuitBreaker : circuitBreakers) {
-            double totalConsumption = calculateTotalConsumption(circuitBreaker);
 
             if (circuitBreaker.getLimitConsomation() != 0) {
-                if (totalConsumption > circuitBreaker.getLimitConsomation()) {
-                    // Create an alert
-                    AlerteModel alerte = new AlerteModel();
-                    alerte.setContent(
-                            "Consumption limit exceeded for circuit breaker " + circuitBreaker.getCircuitBreakerName());
-                    alerte.setType("Consumption");
-                    alerte.setCause(circuitBreaker);
+                List<AlerteModel> listes = alerteService.findByViewedAndCause_Id(false, circuitBreaker.getId());
+                if (listes.size() == 0) {
+                    double totalConsumption = calculateTotalConsumption(circuitBreaker);
 
-                    alerteService.CreateAlerte(alerte);
+                    if (totalConsumption > circuitBreaker.getLimitConsomation()) {
+                        // Create an alert
+                        AlerteModel alerte = new AlerteModel();
+                        alerte.setContent(
+                                "Consumption limit exceeded for circuit breaker "
+                                        + circuitBreaker.getCircuitBreakerName());
+                        alerte.setType("Consumption");
+                        alerte.setCause(circuitBreaker);
+                        alerte.setViewed(false);
+                        alerteService.CreateAlerte(alerte);
+                    }
                 }
             }
         }
@@ -52,7 +56,7 @@ public class ConsumptionMonitoringService {
 
             totalConsumption += machine.getConsomation();
         }
-        System.out.println("zzzzzzzzzzz");
+        System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaaaccccccccchiine");
         System.out.println(totalConsumption);
         return totalConsumption;
     }
