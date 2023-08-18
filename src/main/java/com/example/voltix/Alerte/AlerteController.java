@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 @RestController
 @RequestMapping("/api/Alerte")
@@ -18,11 +19,14 @@ public class AlerteController {
     @Autowired
 
     private final AlerteService alerteService;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    public AlerteController(AlerteService alerteService) {
+    public AlerteController(AlerteService alerteService, SimpMessagingTemplate messagingTemplate) {
 
         this.alerteService = alerteService;
+        this.messagingTemplate = messagingTemplate;
 
     }
 
@@ -59,6 +63,8 @@ public class AlerteController {
 
     @GetMapping("/unviewed-count")
     public long getUnviewedNotificationCount() {
+        messagingTemplate.convertAndSend("/topic/new-Alerte", "New student created");
+
         return alerteService.getUnviewedNotificationCount();
     }
 

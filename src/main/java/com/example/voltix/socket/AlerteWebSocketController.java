@@ -5,10 +5,10 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class StudentWebSocketController {
+public class AlerteWebSocketController {
 
-    @MessageMapping("/student-created")
-    @SendTo("/topic/new-student")
+    @MessageMapping("/AlerteCreated")
+    @SendTo("/topic/new-Alerte")
     public String notifyNewStudent(String message) {
         return message;
     }

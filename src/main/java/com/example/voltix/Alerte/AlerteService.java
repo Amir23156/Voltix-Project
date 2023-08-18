@@ -78,7 +78,6 @@ public class AlerteService {
 
     public List<AlerteWithCauseAndTotal> getAlertesWithCauseAndTotal() {
         List<AlerteModel> alertes = alerteRepository.findAll(); // Fetch all alerts
-        System.out.println(alertes.size());
 
         // Reverse the order of the alertes list using Collections.reverse
         Collections.reverse(alertes);
