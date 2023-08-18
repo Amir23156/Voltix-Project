@@ -1,10 +1,10 @@
 package com.example.voltix.Buildings;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 
@@ -13,15 +13,33 @@ public class BuildingController {
 
     private BuildingService buildingService;
 
+    @GetMapping("/getBuildingsForSite/{id}")
+
+    public ResponseEntity<List<BuildingModel>> getBuildingsForSite(@PathVariable String id) {
+        System.out.println("iiiiiiiiiiiii");
+        System.out.println("zzzzzzzzzzzz");
+        // CircuitBreakerModel
+        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
+        List<BuildingModel> buildings = buildingService.getMachinesByCircuitBreaker(id);
+
+        // List<MachineModel> students =
+        // machineService.getMachineofCircuitBreaker(circuitBreaker);
+        System.out.println("zzzzzzzzzzzz");
+        System.out.println(buildings);
+
+        return ResponseEntity.ok(buildings);
+
+    }
+
     @PostMapping("/AddBuilding")
     public ResponseEntity<BuildingModel> addBuilding(@RequestBody BuildingModel building) {
-       return new ResponseEntity<BuildingModel>(buildingService.addBuilding(building), HttpStatus.ACCEPTED);
+        return new ResponseEntity<BuildingModel>(buildingService.addBuilding(building), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/FindAllBuildings")
     public ResponseEntity<List<BuildingModel>> findAll() {
-       return new ResponseEntity<List<BuildingModel>>(buildingService.findAll(), HttpStatus.ACCEPTED);
-    } 
+        return new ResponseEntity<List<BuildingModel>>(buildingService.findAll(), HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/FindBuildingByName/{buildingName}")
     public ResponseEntity<?> findBuildingByName(@PathVariable String buildingName) {
@@ -39,23 +57,24 @@ public class BuildingController {
         buildingService.deleteBuildingById(id);
         return new ResponseEntity<>("building with ID " + id + " deleted", HttpStatus.OK);
     }
-    
-    @PutMapping("/UpdateBuilding/{id}")
-    public ResponseEntity<BuildingModel> updateBuilding(@PathVariable String id, @RequestBody BuildingModel updatedBuilding) {
-       BuildingModel existingBuilding = buildingService.findBuildingById(id);
-       if (existingBuilding != null) {
-                // Effectuer ici les mises à jour nécessaires sur l'objet existingBuilding en utilisant les setters appropriés de la classe BuildingModel
-             existingBuilding.setBuildingName(updatedBuilding.getBuildingName());
-             existingBuilding.setBuildingLocation(updatedBuilding.getBuildingLocation());
-             
-                // Ajouter d'autres mises à jour pour les autres propriétés de BuildingModel si nécessaire
-    
-             BuildingModel savedBuilding = buildingService.addBuilding(existingBuilding);
-             return new ResponseEntity<>(savedBuilding, HttpStatus.OK);
-       } else {
-             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-     }
-}
-    
 
+    @PutMapping("/UpdateBuilding/{id}")
+    public ResponseEntity<BuildingModel> updateBuilding(@PathVariable String id,
+            @RequestBody BuildingModel updatedBuilding) {
+        BuildingModel existingBuilding = buildingService.findBuildingById(id);
+        if (existingBuilding != null) {
+            // Effectuer ici les mises à jour nécessaires sur l'objet existingBuilding en
+            // utilisant les setters appropriés de la classe BuildingModel
+            existingBuilding.setBuildingName(updatedBuilding.getBuildingName());
+            existingBuilding.setBuildingLocation(updatedBuilding.getBuildingLocation());
+
+            // Ajouter d'autres mises à jour pour les autres propriétés de BuildingModel si
+            // nécessaire
+
+            BuildingModel savedBuilding = buildingService.addBuilding(existingBuilding);
+            return new ResponseEntity<>(savedBuilding, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+}
