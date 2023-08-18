@@ -17,13 +17,18 @@ public class ZoneService {
             return zoneRepository.save(zone);
         }
 
-        public List<ZoneModel> findAll(){
+        /* public List<ZoneModel> findAll(){
             return zoneRepository.findAll();
-        }
+        }*/
 
-        public ZoneModel findZoneByName(String zoneName) {
+       public ZoneModel findZoneByName(String zoneName) {
             return zoneRepository.findByZoneName(zoneName);
+        } 
+
+        public List<ZoneModel> findAllZonesForBuilding(String buildingId) {
+            return zoneRepository.findAllByBuildingId(buildingId);
         }
+        
 
         public void deleteZoneById(String id) {
             Optional<ZoneModel> zoneOptional = zoneRepository.findById(id);

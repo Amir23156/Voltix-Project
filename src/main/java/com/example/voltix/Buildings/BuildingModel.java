@@ -1,6 +1,11 @@
 package com.example.voltix.Buildings;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.voltix.Zones.ZoneModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +21,8 @@ public class BuildingModel {
     private String buildingName;
     private String buildingLocation;
    
+    private List<ZoneModel> zones;
+
 
     public String getId() {
         return id;
@@ -41,4 +48,11 @@ public class BuildingModel {
         this.buildingLocation = buildingLocation;
     } 
        
+    public List<ZoneModel> getZones() {
+        return zones;
+    }
+
+    public void setZones(List<ZoneModel> zones) {
+        this.zones = zones;
+    }
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class ZoneModel {
     private List<String> attendanceDays;
     private String workStartTime; 
     private String workEndTime; 
+    private String buildingId;
     
 
     public String getId() {
@@ -80,6 +83,14 @@ public class ZoneModel {
 
     public void setWorkEndTime(String workEndTime) {
         this.workEndTime = workEndTime;
+    }
+
+    public String getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(String buildingId) {
+        this.buildingId = buildingId;
     }
     
 }
