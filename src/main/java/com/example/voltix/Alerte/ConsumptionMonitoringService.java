@@ -56,8 +56,7 @@ public class ConsumptionMonitoringService {
 
             totalConsumption += machine.getConsomation();
         }
-        System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaaaccccccccchiine");
-        System.out.println(totalConsumption);
+
         return totalConsumption;
     }
 
