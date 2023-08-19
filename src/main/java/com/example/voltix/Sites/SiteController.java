@@ -15,23 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.voltix.Machine.MachineModel;
 
-
 @RestController
 public class SiteController {
     @Autowired
-    private SiteService siteService; 
-
-
+    private SiteService siteService;
 
     @PostMapping("/AddSite")
     public ResponseEntity<SiteModel> addCircuitBreaker(@RequestBody SiteModel site) {
-       return new ResponseEntity<SiteModel>(siteService.addCircuitBreaker(site), HttpStatus.ACCEPTED);
+        return new ResponseEntity<SiteModel>(siteService.addCircuitBreaker(site), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/FindAllSite")
     public ResponseEntity<List<SiteModel>> findAll() {
-       return new ResponseEntity<List<SiteModel>>(siteService.findAll(), HttpStatus.ACCEPTED);
-    } 
+        return new ResponseEntity<List<SiteModel>>(siteService.findAll(), HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/FindSiteByName/{SiteName}")
     public ResponseEntity<?> findBySiteName(@PathVariable String siteName) {
@@ -52,19 +49,21 @@ public class SiteController {
 
     @PutMapping("/UpdateSite/{id}")
     public ResponseEntity<SiteModel> updateSite(@PathVariable String id, @RequestBody SiteModel updatedsite) {
-       SiteModel existingsite = siteService.findSiteById(id);
-       if (existingsite != null) {
-                // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en utilisant les setters appropriés de la classe ZoneModel
-             existingsite.setSiteName(updatedsite.getSiteName());
-             existingsite.setSiteLocation(updatedsite.getSiteLocation());
-                // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si nécessaire
-    
+        SiteModel existingsite = siteService.findSiteById(id);
+        if (existingsite != null) {
+            // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en
+            // utilisant les setters appropriés de la classe ZoneModel
+            existingsite.setSiteName(updatedsite.getSiteName());
+            existingsite.setSiteLocation(updatedsite.getSiteLocation());
+            // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si
+            // nécessaire
+
             SiteModel savedsite = siteService.addCircuitBreaker(existingsite);
             return new ResponseEntity<>(savedsite, HttpStatus.OK);
-       } else {
-             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-     }
-     //hhhhhhhhh
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    // hhhhhhhhh
 
 }

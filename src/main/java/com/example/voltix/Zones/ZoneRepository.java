@@ -8,5 +8,5 @@ public interface ZoneRepository extends MongoRepository<ZoneModel, String> {
 
     ZoneModel findByZoneName(String zoneName);
 
-    List<ZoneModel> findAllByBuildingId(String buildingId);
+    List<ZoneModel> findByBuilding_Id(String circuitBreakerId);
 }

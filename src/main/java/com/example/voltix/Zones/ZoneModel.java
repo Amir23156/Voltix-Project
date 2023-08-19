@@ -3,7 +3,11 @@ package com.example.voltix.Zones;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.voltix.Buildings.BuildingModel;
+import com.example.voltix.Sites.SiteModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +25,7 @@ public class ZoneModel {
     private List<String> attendanceDays;
     private String workStartTime;
     private String workEndTime;
-    private String buildingId;
+    @DBRef
+    private BuildingModel building;
 
-    
-    
 }
-

@@ -40,4 +40,9 @@ public class BuildingService {
         return buildingRepository.findById(buildingId).orElse(null);
     }
 
+    public List<BuildingModel> getBuildingsBySite(String id) {
+
+        return buildingRepository.findBySite_Id(id);
+    }
+
 }

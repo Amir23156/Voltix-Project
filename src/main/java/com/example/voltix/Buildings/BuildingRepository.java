@@ -9,6 +9,6 @@ public interface BuildingRepository extends MongoRepository<BuildingModel, Strin
 
     BuildingModel findByBuildingName(String buildingName);
 
-    // List<BuildingModel> findBySite_Id(String circuitBreakerId);
+    List<BuildingModel> findBySite_Id(String circuitBreakerId);
 
 }

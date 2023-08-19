@@ -13,6 +13,13 @@ public class BuildingController {
 
     private BuildingService buildingService;
 
+    @GetMapping("/getBuildingsForSite/{id}")
+
+    public ResponseEntity<List<BuildingModel>> getBuildingsForSite(@PathVariable String id) {
+        List<BuildingModel> buildings = buildingService.getBuildingsBySite(id);
+        return ResponseEntity.ok(buildings);
+    }
+
     @PostMapping("/AddBuilding")
     public ResponseEntity<BuildingModel> addBuilding(@RequestBody BuildingModel building) {
         return new ResponseEntity<BuildingModel>(buildingService.addBuilding(building), HttpStatus.ACCEPTED);
