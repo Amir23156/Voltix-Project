@@ -25,7 +25,7 @@ public class ZoneConsomationController {
         this.zoneConsomationService = zoneConsomationService;
     }
 
-    @GetMapping("/getZoneConsomation")
+    @GetMapping("/getZoneConsomation/{id}")
 
     public ResponseEntity<List<ZoneConsomationModel>> getMachinesByCircuitBreaker(@PathVariable String id) {
         System.out.println("iiiiiiiiiiiii");
