@@ -28,7 +28,7 @@ public class ConsumptionMonitoringService {
     @Autowired
     private CircuitBreakerRepository circuitBreakerRepository; // Inject your circuit breaker repository
 
-    @Scheduled(fixedRate = 30000) // Run every minute, adjust as needed
+    @Scheduled(cron = "0 0 * * * ?") // Déclencher tous les jours à minuit (00:00 AM)
     public void monitorConsumptionAndCreateAlerts() {
         List<ZoneModel> zones = zoneRepository.findAll();
 
