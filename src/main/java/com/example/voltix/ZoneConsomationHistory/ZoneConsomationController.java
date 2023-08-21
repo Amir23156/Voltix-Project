@@ -27,7 +27,23 @@ public class ZoneConsomationController {
 
     @GetMapping("/getZoneConsomation/{id}")
 
-    public ResponseEntity<List<ZoneConsomationModel>> getMachinesByCircuitBreaker(@PathVariable String id) {
+    public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(@PathVariable String id) {
+        System.out.println("iiiiiiiiiiiii");
+        System.out.println("zzzzzzzzzzzz");
+        // CircuitBreakerModel
+        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
+        List<ZoneConsomationModel> zoneConsomations = zoneConsomationService.getConsomatopForZone(id);
+
+        // List<MachineModel> students =
+        // machineService.getMachineofCircuitBreaker(circuitBreaker);
+
+        return ResponseEntity.ok(zoneConsomations);
+
+    }
+
+    @GetMapping("/getMosteConsumedZone")
+
+    public ResponseEntity<List<ZoneConsomationModel>> getMosteConsumedZone(@PathVariable String id) {
         System.out.println("iiiiiiiiiiiii");
         System.out.println("zzzzzzzzzzzz");
         // CircuitBreakerModel
