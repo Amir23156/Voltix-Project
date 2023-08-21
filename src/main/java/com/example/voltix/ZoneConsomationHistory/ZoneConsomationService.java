@@ -6,8 +6,7 @@ import com.example.voltix.Machine.MachineModel;
 import com.example.voltix.Zones.*;
 
 import com.example.voltix.Machine.MachineRepository;
-import com.example.voltix.Zones.ZoneModel;
-import com.example.voltix.Zones.ZoneRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +17,17 @@ import java.util.Optional;
 @Service
 public class ZoneConsomationService {
     private final ZoneConsomationRepository zoneConsomationRepository;
-    private final ZoneRepository zoneRepository;
-    private final CircuitBreakerRepository circuitBreakerRepository;
+    private final ZoneService zoneService;
     private final MachineRepository machineRepository;
+    private final CircuitBreakerRepository circuitBreakerRepository;
 
     @Autowired
     public ZoneConsomationService(MachineRepository machineRepository,
             CircuitBreakerRepository circuitBreakerRepository, ZoneRepository zoneRepository,
-            ZoneConsomationRepository zoneConsomationRepository) {
+            ZoneConsomationRepository zoneConsomationRepository, ZoneService zoneService) {
         this.zoneConsomationRepository = zoneConsomationRepository;
         this.machineRepository = machineRepository;
-        this.zoneRepository = zoneRepository;
+        this.zoneService = zoneService;
         this.circuitBreakerRepository = circuitBreakerRepository;
     }
 
@@ -65,4 +64,24 @@ public class ZoneConsomationService {
         return zoneConsomation;
     }
 
+    public List<ZoneConsomationModel> getMostConsumedZone() {
+        System.out.println("im here ");
+
+        List<ZoneModel> zoneListe = zoneService.findAll();
+        ZoneModel MostsZoneConsumed = zoneListe.get(0);
+        double Consumption = 0;
+        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
+        for (ZoneModel zoneModel : zoneListe) {
+            List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZone_Id(zoneModel.getId());
+            double totalConsumpt = zoneConsomation.stream()
+                    .mapToDouble(ZoneConsomationModel::getConsomation)
+                    .sum();
+            if (totalConsumpt > Consumption) {
+                MostsZoneConsumed = zoneModel;
+                Consumption = totalConsumpt;
+            }
+        }
+        return zoneConsomation;
+
+    }
 }

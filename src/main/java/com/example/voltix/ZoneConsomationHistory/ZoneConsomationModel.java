@@ -9,7 +9,7 @@ import lombok.Data;
 import com.example.voltix.Zones.ZoneModel;
 
 @Data
-@Document(collection = "Machines")
+@Document(collection = "ZoneConsomation")
 public class ZoneConsomationModel {
     @Id
     private String id;
