@@ -2,7 +2,6 @@ package com.example.voltix.ZoneConsomationHistory;
 
 import com.example.voltix.Zones.*;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
