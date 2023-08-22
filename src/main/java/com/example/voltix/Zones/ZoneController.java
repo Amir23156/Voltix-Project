@@ -1,27 +1,44 @@
 package com.example.voltix.Zones;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.voltix.EnergyStats.EnergyStatsModel;
+
+import com.example.voltix.EnergyStats.EnergyStatsService;
+
 @RestController
 
 public class ZoneController {
 
     private final ZoneService zoneService;
-
+   
     @Autowired
     public ZoneController(ZoneService zoneService) {
         this.zoneService = zoneService;
     }
+    @Autowired
+    private EnergyStatsService energyStatsService; // Add the EnergyStatsService
 
     @PostMapping("/AddZone")
     public ResponseEntity<ZoneModel> addZone(@RequestBody ZoneModel zone) {
+        ZoneModel addedZone = zoneService.addZone(zone);
 
-        return new ResponseEntity<ZoneModel>(zoneService.addZone(zone), HttpStatus.ACCEPTED);
+        // Create and associate an EnergyStatsModel object with random attributes
+        EnergyStatsModel energyStats = new EnergyStatsModel();
+        energyStats.setZone(addedZone);
+         Random random = new Random();
+        energyStats.setDailyConsumption(1 + random.nextDouble() * 99); // Set random values for consumption
+        energyStats.setMonthlyConsumption(1 + random.nextDouble() * 99);
+        energyStats.setAnnualConsumption(1 + random.nextDouble() * 99);
+        energyStatsService.addEnergyStats(energyStats);
+
+        return new ResponseEntity<>(addedZone, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/getZonesForBuilding/{id}")
@@ -42,13 +59,13 @@ public class ZoneController {
 
     }
 
-    /*
-     * @GetMapping("/FindAllZones")
-     * public ResponseEntity<List<ZoneModel>> findAll() {
-     * return new ResponseEntity<List<ZoneModel>>(zoneService.findAll(),
-     * HttpStatus.ACCEPTED);
-     * }
-     */
+    
+      @GetMapping("/FindAllZones")
+      public ResponseEntity<List<ZoneModel>> findAll() {
+      return new ResponseEntity<List<ZoneModel>>(zoneService.findAll(),
+      HttpStatus.ACCEPTED);
+      }
+     
     @GetMapping("/FindAllZonesForBuilding/{buildingId}")
     public ResponseEntity<List<ZoneModel>> findAllZonesForBuilding(@PathVariable String buildingId) {
         List<ZoneModel> zones = zoneService.getZonesByBuildings(buildingId);
