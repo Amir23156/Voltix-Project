@@ -70,6 +70,24 @@ public class MachineController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/totalConsumption")
+    public double getTotalConsumption() {
+
+        List<MachineModel> machines = machineService.findAll();
+        double totalConsumption = machines.stream()
+                .mapToDouble(MachineModel::getConsomation)
+                .sum();
+        return totalConsumption;
+    }
+
+    @GetMapping("/moyenneConsumption")
+    public double getMoyenneConsumption() {
+        System.out.println("ll  moalllaooaoaoao");
+        System.out.println(machineService.calculateAverageConsumption());
+
+        return machineService.calculateAverageConsumption();
+    }
+
     @PostMapping("/{id}")
     public ResponseEntity<Void> updateMachine(@PathVariable String id, @RequestBody MachineModel machine) {
 

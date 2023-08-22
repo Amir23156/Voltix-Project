@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class MachineService {
     private final MachineRepository machineRepository;
@@ -16,31 +17,50 @@ public class MachineService {
     public MachineService(MachineRepository machineRepository) {
         this.machineRepository = machineRepository;
     }
-    public MachineModel CreateMachine(MachineModel machine)
-    {return machineRepository.save(machine) ;}
 
-    public List<MachineModel> findAll(){
+    public MachineModel CreateMachine(MachineModel machine) {
+        return machineRepository.save(machine);
+    }
+
+    public List<MachineModel> findAll() {
         return machineRepository.findAll();
+    }
+
+    public double calculateAverageConsumption() {
+        List<MachineModel> machines = machineRepository.findAll();
+        double totalConsumption = 0.0;
+        for (MachineModel machine : machines) {
+            totalConsumption += machine.getConsomation();
+        }
+
+        // Check if there are machines to avoid division by zero.
+        if (machines.isEmpty()) {
+            return 0.0;
+        }
+
+        return totalConsumption / machines.size();
     }
 
     public List<MachineModel> getMachinesByCircuitBreaker(String id) {
         System.out.println("im here ");
-      //  System.out.println(machineRepository.findByCircuitBreaker_Id(id));
+        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
         System.out.println("im here ");
 
         return machineRepository.findByCircuitBreaker_Id(id);
     }
+
     public void deleteMachineById(String id) {
-            machineRepository.deleteById(id);
+        machineRepository.deleteById(id);
     }
+
     public void updatMachine(MachineModel user) {
         machineRepository.save(user);
     }
+
     public MachineModel findById(String id) {
         System.out.println("id");
-        System.out.println("salem"+id);
-        return machineRepository. findById(id).orElse(null);
+        System.out.println("salem" + id);
+        return machineRepository.findById(id).orElse(null);
     }
-
 
 }
