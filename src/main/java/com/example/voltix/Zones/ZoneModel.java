@@ -24,6 +24,7 @@ public class ZoneModel {
     private String zoneMainActivity;
     private List<String> attendanceDays;
     private String workStartTime;
+    private double consomation;
     private String workEndTime;
     @DBRef
     private BuildingModel building;

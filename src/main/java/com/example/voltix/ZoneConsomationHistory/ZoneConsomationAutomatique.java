@@ -15,7 +15,7 @@ import com.example.voltix.Zones.ZoneModel;
 import com.example.voltix.Zones.ZoneRepository;
 
 @Service
-public class ConsumptionMonitoringService {
+public class ZoneConsomationAutomatique {
 
     @Autowired
     private MachineRepository machineRepository;

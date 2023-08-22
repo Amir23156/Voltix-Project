@@ -26,21 +26,6 @@ public class MachineService {
         return machineRepository.findAll();
     }
 
-    public double calculateAverageConsumption() {
-        List<MachineModel> machines = machineRepository.findAll();
-        double totalConsumption = 0.0;
-        for (MachineModel machine : machines) {
-            totalConsumption += machine.getConsomation();
-        }
-
-        // Check if there are machines to avoid division by zero.
-        if (machines.isEmpty()) {
-            return 0.0;
-        }
-
-        return totalConsumption / machines.size();
-    }
-
     public List<MachineModel> getMachinesByCircuitBreaker(String id) {
         System.out.println("im here ");
         // System.out.println(machineRepository.findByCircuitBreaker_Id(id));

@@ -80,14 +80,6 @@ public class MachineController {
         return totalConsumption;
     }
 
-    @GetMapping("/moyenneConsumption")
-    public double getMoyenneConsumption() {
-        System.out.println("ll  moalllaooaoaoao");
-        System.out.println(machineService.calculateAverageConsumption());
-
-        return machineService.calculateAverageConsumption();
-    }
-
     @PostMapping("/{id}")
     public ResponseEntity<Void> updateMachine(@PathVariable String id, @RequestBody MachineModel machine) {
 

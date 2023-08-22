@@ -4,6 +4,7 @@ import com.example.voltix.CircuitBreakers.CircuitBreakerModel;
 import com.example.voltix.CircuitBreakers.CircuitBreakerRepository;
 import com.example.voltix.CircuitBreakers.CircuitBreakerService;
 import com.example.voltix.Machine.MachineModel;
+import com.example.voltix.Machine.MachineService;
 import com.example.voltix.Zones.ZoneModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,40 +19,21 @@ public class ZoneConsomationController {
     @Autowired
 
     private final ZoneConsomationService zoneConsomationService;
+       @Autowired
+    private final MachineService machineService;
 
     @Autowired
-    public ZoneConsomationController(ZoneConsomationService zoneConsomationService) {
+    public ZoneConsomationController(MachineService machineService, ZoneConsomationService zoneConsomationService) {
 
         this.zoneConsomationService = zoneConsomationService;
+        this.machineService = machineService;
     }
 
     @GetMapping("/getZoneConsomation/{id}")
 
     public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(@PathVariable String id) {
-        System.out.println("iiiiiiiiiiiii");
-        System.out.println("zzzzzzzzzzzz");
-        // CircuitBreakerModel
-        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
+
         List<ZoneConsomationModel> zoneConsomations = zoneConsomationService.getConsomatopForZone(id);
-
-        // List<MachineModel> students =
-        // machineService.getMachineofCircuitBreaker(circuitBreaker);
-
-        return ResponseEntity.ok(zoneConsomations);
-
-    }
-
-    @GetMapping("/getMosteConsumedZone")
-
-    public ResponseEntity<List<ZoneConsomationModel>> getMosteConsumedZone(@PathVariable String id) {
-        System.out.println("iiiiiiiiiiiii");
-        System.out.println("zzzzzzzzzzzz");
-        // CircuitBreakerModel
-        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
-        List<ZoneConsomationModel> zoneConsomations = zoneConsomationService.getConsomatopForZone(id);
-
-        // List<MachineModel> students =
-        // machineService.getMachineofCircuitBreaker(circuitBreaker);
 
         return ResponseEntity.ok(zoneConsomations);
 
