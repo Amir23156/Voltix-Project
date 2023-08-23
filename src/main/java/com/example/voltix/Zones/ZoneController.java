@@ -28,18 +28,26 @@ public class ZoneController {
     @PostMapping("/AddZone")
     public ResponseEntity<ZoneModel> addZone(@RequestBody ZoneModel zone) {
         ZoneModel addedZone = zoneService.addZone(zone);
-
+    
         // Create and associate an EnergyStatsModel object with random attributes
         EnergyStatsModel energyStats = new EnergyStatsModel();
         energyStats.setZone(addedZone);
-         Random random = new Random();
-        energyStats.setDailyConsumption(1 + random.nextDouble() * 99); // Set random values for consumption
-        energyStats.setMonthlyConsumption(1 + random.nextDouble() * 99);
-        energyStats.setAnnualConsumption(1 + random.nextDouble() * 99);
+    
+        Random random = new Random();
+        energyStats.setDailyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99)); // Set random values for consumption
+        energyStats.setMonthlyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99));
+        energyStats.setAnnualConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99));
+    
         energyStatsService.addEnergyStats(energyStats);
-
+    
         return new ResponseEntity<>(addedZone, HttpStatus.ACCEPTED);
     }
+    
+    // Method to round a double to two decimal places
+    private double roundToTwoDecimals(double value) {
+        return Math.round(value * 100.0) / 100.0;
+    }
+    
 
     @GetMapping("/getZonesForBuilding/{id}")
 
