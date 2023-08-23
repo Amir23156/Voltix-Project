@@ -41,7 +41,8 @@ public class HomeService {
             double Consumption = 0;
             // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
             for (ZoneModel zoneModel : zoneListe) {
-                List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZone_Id(zoneModel.getId());
+                List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository
+                        .findByZoneIdOrderByDateAsc(zoneModel.getId());
                 double totalConsumpt = zoneConsomation.stream()
                         .mapToDouble(ZoneConsomationModel::getConsomation)
                         .sum();

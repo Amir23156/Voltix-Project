@@ -30,6 +30,7 @@ public class ZoneConsomationAutomatique {
 
     @Scheduled(cron = "0 0 * * * ?") // Déclencher tous les jours à minuit (00:00 AM)
     public void monitorConsumptionAndCreateAlerts() {
+        System.out.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
         List<ZoneModel> zones = zoneRepository.findAll();
 
         for (ZoneModel zone : zones) {
@@ -59,7 +60,7 @@ public class ZoneConsomationAutomatique {
                 totalConsumption += machine.getConsomation();
             }
         }
-        List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZone_Id(zone.getId());
+        List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZoneIdOrderByDateAsc(zone.getId());
         double totalConsumpt = zoneConsomation.stream()
                 .mapToDouble(ZoneConsomationModel::getConsomation)
                 .sum();

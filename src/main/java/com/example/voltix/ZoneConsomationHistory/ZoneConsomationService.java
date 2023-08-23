@@ -48,7 +48,8 @@ public class ZoneConsomationService {
 
         // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
         System.out.println("im here ");
-        List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZone_Id(id);
+
+        List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZoneIdOrderByDateAsc(id);
         return zoneConsomation;
     }
 
