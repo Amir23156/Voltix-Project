@@ -28,7 +28,7 @@ public class ZoneConsomationAutomatique {
     @Autowired
     private CircuitBreakerRepository circuitBreakerRepository; // Inject your circuit breaker repository
 
-    @Scheduled(cron = "0 0 * * * ?") // Déclencher tous les jours à minuit (00:00 AM)
+    @Scheduled(cron = "@daily") // Déclencher tous les jours à minuit (00:00 AM)
     public void monitorConsumptionAndCreateAlerts() {
         System.out.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
         List<ZoneModel> zones = zoneRepository.findAll();

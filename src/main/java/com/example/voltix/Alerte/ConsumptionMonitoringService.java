@@ -24,12 +24,15 @@ public class ConsumptionMonitoringService {
     @Scheduled(fixedRate = 30000) // Run every minute, adjust as needed
     public void monitorConsumptionAndCreateAlerts() {
         List<CircuitBreakerModel> circuitBreakers = circuitBreakerRepository.findAll();
-
+        System.out.println("hhhhhhhhhhhhhhhhhhheeeeeeeeeeeeeeeeeeeeeeeee");
+        System.out.println(circuitBreakers);
         for (CircuitBreakerModel circuitBreaker : circuitBreakers) {
 
             if (circuitBreaker.getLimitConsomation() != 0) {
                 List<AlerteModel> listes = alerteService.findByViewedAndCause_Id(false, circuitBreaker.getId());
                 if (listes.size() == 0) {
+                    System.out.println("kkkekkekkkkkkkk");
+                    System.out.println(circuitBreaker);
                     double totalConsumption = calculateTotalConsumption(circuitBreaker);
 
                     if (totalConsumption > circuitBreaker.getLimitConsomation()) {

@@ -78,18 +78,27 @@ public class AlerteService {
 
     public List<AlerteWithCauseAndTotal> getAlertesWithCauseAndTotal() {
         List<AlerteModel> alertes = alerteRepository.findAll(); // Fetch all alerts
-
+        System.out.println("zzaaaaaaaaaazzeeeeeeeeee");
+        System.out.println("zzaaaaaaaaaazzeeeeeeeeee");
         // Reverse the order of the alertes list using Collections.reverse
         Collections.reverse(alertes);
+        System.out.println("zzaaaaaaaaaazzeeeeeeeeee1");
 
         // Create a list to hold the results
         List<AlerteWithCauseAndTotal> result = new ArrayList<>();
+        System.out.println("zzaaaaaaaaaazzeeeeeeeeee2");
 
         for (AlerteModel alerte : alertes) {
             // Get the cause circuit breaker for each alert
+            System.out.println("zzaaaaaaaaaazzeeeeeeeeee3");
+
             CircuitBreakerModel cause = alerte.getCause();
+            System.out.println("zzzzzzzzzzzzzzzzz");
+            System.out.println(cause);
 
             // Calculate the total consumption for the cause circuit breaker
+            System.out.println("zzzzzzzzzzzzzzzzz");
+
             double totalConsumption = calculateTotalConsumption(cause);
 
             // Create a new object that holds alert info along with cause and total
@@ -106,6 +115,8 @@ public class AlerteService {
 
     private double calculateTotalConsumption(CircuitBreakerModel circuitBreaker) {
         double totalConsumption = 0.0;
+        System.out.println("zzzzzzzaezeazzafdzdsqdqsd");
+        System.out.println(circuitBreaker);
         List<MachineModel> machines = machineRepository.findByCircuitBreaker_Id(circuitBreaker.getId());
 
         for (MachineModel machine : machines) {
