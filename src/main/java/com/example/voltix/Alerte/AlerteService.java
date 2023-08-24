@@ -49,8 +49,11 @@ public class AlerteService {
      * return alerteRepository.findByCircuitBreaker_Id(id);
      * }
      */
-    public void deleteMachineById(String id) {
+    public void deleteAlerte(String id) {
         alerteRepository.deleteById(id);
+
+    }public void deleteAlertes(String id) {
+        alerteRepository.findByCircuitBreaker_Id(id);
     }
 
     public long getUnviewedNotificationCount() {

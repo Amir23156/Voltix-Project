@@ -38,6 +38,12 @@ public class MachineService {
         machineRepository.deleteById(id);
     }
 
+    public void deleteMachines(String id) {
+        List<MachineModel> machines = machineRepository.findByCircuitBreaker_Id(id);
+        machineRepository.deleteAll(machines);
+
+    }
+
     public void updatMachine(MachineModel user) {
         machineRepository.save(user);
     }
