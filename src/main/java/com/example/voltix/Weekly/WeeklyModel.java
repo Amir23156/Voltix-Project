@@ -20,14 +20,14 @@ public class WeeklyModel {
 
         // Constructor
     public WeeklyModel() {
-
-        hours.add("Monday");
-        hours.add("Tuesday");
-        hours.add("Wednesday");
-        hours.add("Thursday");
-        hours.add("Friday");
-        hours.add("Saturday");
-        hours.add("Sunday");
+    
+        hours.add("Mon");
+        hours.add("Tues");
+        hours.add("Wed");
+        hours.add("Thur");
+        hours.add("Fri");
+        hours.add("Sat");
+        hours.add("Sun");
 
 
         Random random = new Random();

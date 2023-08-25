@@ -20,18 +20,18 @@ public class MonthlyModel {
 
         // Constructor
     public MonthlyModel() {
-        hours.add("January");
-        hours.add("February");
-        hours.add("March");
-        hours.add("April");
+        hours.add("Jan");
+        hours.add("Feb");
+        hours.add("Mar");
+        hours.add("Apr");
         hours.add("May");
-        hours.add("June");
-        hours.add("July");
-        hours.add("August");
-        hours.add("September");
-        hours.add("October");
-        hours.add("November");
-        hours.add("December");
+        hours.add("Jun");
+        hours.add("Jul");
+        hours.add("Aug");
+        hours.add("Sep");
+        hours.add("Oct");
+        hours.add("Nov");
+        hours.add("Dec");
 
         Random random = new Random();
         for (int i = 0; i < 12; i++) {
