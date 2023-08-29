@@ -1,5 +1,6 @@
 package com.example.voltix.ZoneConsomationHistory;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,11 +29,10 @@ public class ZoneConsomationAutomatique {
     @Autowired
     private CircuitBreakerRepository circuitBreakerRepository; // Inject your circuit breaker repository
 
-    @Scheduled(cron = "@daily") // Déclencher tous les jours à minuit (00:00 AM)
+    @Scheduled(cron = "@hourly") // Déclencher tous les jours à minuit (00:00 AM)
     public void monitorConsumptionAndCreateAlerts() {
-        System.out.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
         List<ZoneModel> zones = zoneRepository.findAll();
-
+        System.out.println("ézééééééééééééééééé");
         for (ZoneModel zone : zones) {
 
             double totalConsumption = calculateTotalConsumption(zone);
@@ -40,7 +40,20 @@ public class ZoneConsomationAutomatique {
             // Create an alert
             ZoneConsomationModel zoneConsomation = new ZoneConsomationModel();
             zoneConsomation.setConsomation(totalConsumption);
-            zoneConsomation.setDate(new Date());
+            Date same = new Date();
+
+            // Create a Calendar instance and set it to the given Date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(same);
+
+            // Set minutes, seconds, and milliseconds to zero
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            // Get the modified Date
+            Date modifiedDate = calendar.getTime();
+            zoneConsomation.setDate(modifiedDate);
             zoneConsomation.setZone(zone);
 
             zoneConsomationRepository.save(zoneConsomation);

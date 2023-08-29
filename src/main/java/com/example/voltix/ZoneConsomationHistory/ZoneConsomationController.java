@@ -7,10 +7,12 @@ import com.example.voltix.Machine.MachineModel;
 import com.example.voltix.Machine.MachineService;
 import com.example.voltix.Zones.ZoneModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,7 +21,7 @@ public class ZoneConsomationController {
     @Autowired
 
     private final ZoneConsomationService zoneConsomationService;
-       @Autowired
+    @Autowired
     private final MachineService machineService;
 
     @Autowired
@@ -42,6 +44,39 @@ public class ZoneConsomationController {
     @GetMapping
     public List<ZoneConsomationModel> getAllMachine() {
         return zoneConsomationService.findAll();
+    }
+
+    @PostMapping("/getZoneConsomationBetwenDate")
+
+    public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(
+            @RequestBody fetchDataModel startDate) {
+
+        System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+        System.out.println("Z%MZZZZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+        System.out.println(startDate.getDateDebut());
+        System.out.println(startDate.getDateFin());
+        return ResponseEntity.ok(
+                zoneConsomationService.getZoneConsomationsBetweenDates(startDate.getDateFin(), startDate.getDateDebut(),
+                        startDate.getZone().getId()));
+
+        // return ResponseEntity.ok(zoneConsomations);
+
+    }
+
+    @PostMapping("/getZoneConsomationBetwenDateForAll")
+    public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(
+            @RequestBody FetchAll startDate) {
+
+        System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+        System.out.println("Z%MZZZZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+        System.out.println(startDate.getDateDebut());
+        System.out.println(startDate.getDateFin());
+        System.out.println(zoneConsomationService.getZoneConsomationsBetweenDatesForAll(startDate));
+        return ResponseEntity.ok(
+                zoneConsomationService.getZoneConsomationsBetweenDatesForAll(startDate));
+
+        // return ResponseEntity.ok(zoneConsomations);
+
     }
 
     @GetMapping("/{id}")
