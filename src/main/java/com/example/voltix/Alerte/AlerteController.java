@@ -115,4 +115,9 @@ public class AlerteController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMachine(@PathVariable String id) {
+        alerteService.deleteMachineById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

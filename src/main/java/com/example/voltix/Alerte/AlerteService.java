@@ -14,8 +14,14 @@ import com.example.voltix.Machine.MachineRepository;
 
 @Service
 public class AlerteService {
+    @Autowired
+
     private final AlerteRepository alerteRepository;
+    @Autowired
+
     private final com.example.voltix.Machine.MachineRepository machineRepository;
+    @Autowired
+
     private final CircuitBreakerRepository circuitBreakerRepository;
 
     @Autowired
@@ -27,12 +33,17 @@ public class AlerteService {
     }
 
     public AlerteModel CreateAlerte(AlerteModel alerte) {
-      
+
         return alerteRepository.save(alerte);
     }
 
     public List<AlerteModel> findAll() {
         return alerteRepository.findAll();
+    }
+
+    public void deleteAlertes(String id) {
+        List<AlerteModel> alerts = alerteRepository.findByCause_Id(id);
+        alerteRepository.deleteAll(alerts);
     }
 
     public List<AlerteModel> findByViewedAndCause_Id(boolean viewed, String causeId) {
@@ -48,11 +59,8 @@ public class AlerteService {
      * return alerteRepository.findByCircuitBreaker_Id(id);
      * }
      */
-    public void deleteAlerte(String id) {
+    public void deleteMachineById(String id) {
         alerteRepository.deleteById(id);
-
-    }public void deleteAlertes(String id) {
-        alerteRepository.findByCircuitBreaker_Id(id);
     }
 
     public long getUnviewedNotificationCount() {
@@ -60,7 +68,7 @@ public class AlerteService {
     }
 
     public void markAlertsAsViewed(List<AlerteModel> alertes) {
-      
+
         for (AlerteModel alerte : alertes) {
             alerte.setViewed(true);
         }
@@ -72,13 +80,13 @@ public class AlerteService {
     }
 
     public AlerteModel findById(String id) {
-   
+
         return alerteRepository.findById(id).orElse(null);
     }
 
     public List<AlerteWithCauseAndTotal> getAlertesWithCauseAndTotal() {
         List<AlerteModel> alertes = alerteRepository.findAll(); // Fetch all alerts
-      
+
         // Reverse the order of the alertes list using Collections.reverse
         Collections.reverse(alertes);
 
@@ -89,7 +97,6 @@ public class AlerteService {
             // Get the cause circuit breaker for each alert
 
             CircuitBreakerModel cause = alerte.getCause();
-         
 
             // Calculate the total consumption for the cause circuit breaker
 
@@ -109,7 +116,7 @@ public class AlerteService {
 
     private double calculateTotalConsumption(CircuitBreakerModel circuitBreaker) {
         double totalConsumption = 0.0;
-     
+
         List<MachineModel> machines = machineRepository.findByCircuitBreaker_Id(circuitBreaker.getId());
 
         for (MachineModel machine : machines) {
