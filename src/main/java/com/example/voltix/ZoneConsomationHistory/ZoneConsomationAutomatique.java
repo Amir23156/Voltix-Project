@@ -43,17 +43,9 @@ public class ZoneConsomationAutomatique {
             Date same = new Date();
 
             // Create a Calendar instance and set it to the given Date
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(same);
+            
 
-            // Set minutes, seconds, and milliseconds to zero
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-
-            // Get the modified Date
-            Date modifiedDate = calendar.getTime();
-            zoneConsomation.setDate(modifiedDate);
+            zoneConsomation.setDate(same);
             zoneConsomation.setZone(zone);
 
             zoneConsomationRepository.save(zoneConsomation);

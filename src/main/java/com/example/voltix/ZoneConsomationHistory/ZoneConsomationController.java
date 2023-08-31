@@ -50,28 +50,16 @@ public class ZoneConsomationController {
 
     public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(
             @RequestBody fetchDataModel startDate) {
-
-        System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-        System.out.println("Z%MZZZZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-        System.out.println(startDate.getDateDebut());
-        System.out.println(startDate.getDateFin());
-        return ResponseEntity.ok(
-                zoneConsomationService.getZoneConsomationsBetweenDates(startDate.getDateFin(), startDate.getDateDebut(),
-                        startDate.getZone().getId()));
-
-        // return ResponseEntity.ok(zoneConsomations);
+        System.out.println("frrrrrrrrrrrrr");
+        System.out.println("frrrrrrrrrrrrr");
+                return ResponseEntity.ok(
+                zoneConsomationService.getZoneConsomationsBetweenDates(startDate));
 
     }
 
     @PostMapping("/getZoneConsomationBetwenDateForAll")
     public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(
             @RequestBody FetchAll startDate) {
-
-        System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-        System.out.println("Z%MZZZZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-        System.out.println(startDate.getDateDebut());
-        System.out.println(startDate.getDateFin());
-        System.out.println(zoneConsomationService.getZoneConsomationsBetweenDatesForAll(startDate));
         return ResponseEntity.ok(
                 zoneConsomationService.getZoneConsomationsBetweenDatesForAll(startDate));
 

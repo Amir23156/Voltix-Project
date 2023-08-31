@@ -16,5 +16,6 @@ public class fetchDataModel {
     private Date dateFin;
 
     private ZoneModel zone;
+    private String type;
 
 }
