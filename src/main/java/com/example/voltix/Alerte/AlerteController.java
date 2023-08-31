@@ -92,14 +92,11 @@ public class AlerteController {
         AlerteModel existingMachine = alerteService.findById(alerte.getId());
 
         if (existingMachine != null) {
-            System.out.println("zzzzzzzzz");
-            System.out.println(existingMachine);
-            System.out.println(alerte);
+          
 
             alerte.setId(alerte.getId());
             alerteService.updatMachine(alerte);
-            System.out.println("zzzzzzzzz");
-            System.out.println(alerte);
+            
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -109,8 +106,7 @@ public class AlerteController {
     @PostMapping("/UpdateListe")
     public ResponseEntity<Void> updateMachineListe(@RequestBody List<AlerteWithCauseAndTotal> alerts) {
 
-        System.out.println("ena lena");
-        System.out.println(alerts);
+       
         List<AlerteModel> alerteList = alerts.stream()
                 .map(AlerteWithCauseAndTotal::getAlerte)
                 .collect(Collectors.toList());

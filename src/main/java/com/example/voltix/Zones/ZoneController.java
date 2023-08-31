@@ -8,9 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.voltix.Annually.AnnuallyModel;
+import com.example.voltix.Annually.AnnuallyService;
+import com.example.voltix.Daily.DailyModel;
+import com.example.voltix.Daily.DailyService;
 import com.example.voltix.EnergyStats.EnergyStatsModel;
-
 import com.example.voltix.EnergyStats.EnergyStatsService;
+import com.example.voltix.Monthly.MonthlyModel;
+import com.example.voltix.Monthly.MonthlyService;
+import com.example.voltix.Weekly.WeeklyModel;
+import com.example.voltix.Weekly.WeeklyService;
 
 @RestController
 
@@ -23,23 +30,49 @@ public class ZoneController {
         this.zoneService = zoneService;
     }
     @Autowired
-    private EnergyStatsService energyStatsService; // Add the EnergyStatsService
-
+    private DailyService dailyService;
+    @Autowired
+    private EnergyStatsService energyStatsService;
+    @Autowired
+    private WeeklyService weeklyService;
+    @Autowired
+    private MonthlyService monthlyService;
+    @Autowired
+    private AnnuallyService annuallyService;
+   
     @PostMapping("/AddZone")
     public ResponseEntity<ZoneModel> addZone(@RequestBody ZoneModel zone) {
         ZoneModel addedZone = zoneService.addZone(zone);
     
-        // Create and associate an EnergyStatsModel object with random attributes
+        DailyModel daily = new DailyModel();
+        daily.setZone(addedZone);
+        dailyService.addDaily(daily);  
+
+        WeeklyModel weekly = new WeeklyModel();
+        weekly.setZone(addedZone);
+        weeklyService.addWeekly(weekly);  
+
+        MonthlyModel monthly = new MonthlyModel();
+        monthly.setZone(addedZone);
+        monthlyService.addMonthly(monthly);  
+
+        AnnuallyModel annually = new AnnuallyModel();
+        annually.setZone(addedZone);
+        annuallyService.addAnnually(annually);  
+
         EnergyStatsModel energyStats = new EnergyStatsModel();
         energyStats.setZone(addedZone);
-    
+        
         Random random = new Random();
         energyStats.setDailyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99)); // Set random values for consumption
         energyStats.setMonthlyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99));
         energyStats.setAnnualConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99));
-    
+       
         energyStatsService.addEnergyStats(energyStats);
-    
+
+
+         
+
         return new ResponseEntity<>(addedZone, HttpStatus.ACCEPTED);
     }
     
