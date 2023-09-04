@@ -41,12 +41,10 @@ public class ZoneConsomationService {
 
     public List<ZoneConsomationModel> getZoneConsomationsBetweenDates(fetchDataModel fetchRequest) {
         List<ZoneConsomationModel> filteredInstances = new ArrayList<>();
-System.out.println("jormn");
         try {
             List<ZoneConsomationModel> instancesInDateRange = zoneConsomationRepository
                     .findByDateBetweenAndZone_Id(fetchRequest.getDateDebut(), fetchRequest.getDateFin(),
                             fetchRequest.getZone().getId());
-System.out.println("instancesInDateRange");
 
             if ((fetchRequest.getType()).equals("annully")) {
 
@@ -65,8 +63,7 @@ System.out.println("instancesInDateRange");
                     yearMonthToConsumptionMap.put(yearMonth,
                             yearMonthToConsumptionMap.getOrDefault(yearMonth, 0.0) + instance.getConsomation());
                 }
-                System.out.println("olo");
-                System.out.println(yearMonthToConsumptionMap);
+              
 
                 // Create a new list with grouped instances
 
@@ -94,12 +91,10 @@ System.out.println("instancesInDateRange");
                     filteredInstances.add(groupedInstance);
 
                 }
-                System.out.println(filteredInstances);
 
             }
 
             else if (((fetchRequest.getType()).equals("monthly")) || ((fetchRequest.getType()).equals("weekly"))) {
-                System.out.println("zarzjkrzrzmijzizaezajeziaezajiezejzeij");
                 Map<String, Double> yearMonthToConsumptionMap = new HashMap<>();
 
                 // Iterate through instances and group by year and month
@@ -108,15 +103,8 @@ System.out.println("instancesInDateRange");
                     Date date = instance.getDate();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println(sdf);
+                  
                     String yearMonth = sdf.format(date);
-                    System.out.println(yearMonth);
 
                     // Update the consumption sum for the group
                     yearMonthToConsumptionMap.put(yearMonth,
@@ -150,12 +138,9 @@ System.out.println("instancesInDateRange");
                 }
 
             } else {
-                System.out.println("rani len a bb");
 
                 Map<String, Double> yearMonthToConsumptionMap = new HashMap<>();
-                System.out.println("qqqqqqqqqqqqqqqqqqqq");
-                System.out.println(instancesInDateRange);
-                System.out.println(instancesInDateRange);
+               
                 // Iterate through instances and group by year and month
                 for (ZoneConsomationModel instance : instancesInDateRange) {
 
@@ -163,15 +148,12 @@ System.out.println("instancesInDateRange");
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM  HH");
                     String yearMonth = sdf.format(date);
-                    System.out.println("rannnnnn");
-                    System.out.println(instance.getConsomation());
+                 
                     // Update the consumption sum for the group
                     yearMonthToConsumptionMap.put(yearMonth,
                             yearMonthToConsumptionMap.getOrDefault(yearMonth, 0.0) + instance.getConsomation());
                 }
-                System.out.println("rani len a bb");
-                System.out.println(yearMonthToConsumptionMap);
-
+               
                 // Create a new list with grouped instances
 
                 for (Map.Entry<String, Double> entry : yearMonthToConsumptionMap.entrySet()) {
@@ -183,8 +165,7 @@ System.out.println("instancesInDateRange");
                     // Parse the year-month string back to a Date if needed
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM  HH");
                     Date date = sdf.parse(entry.getKey());
-                    System.out.println("date");
-                    System.out.println(date);
+                
                     groupedInstance.setDate(date);
 
                     // Add the grouped instance to the new list
@@ -199,13 +180,11 @@ System.out.println("instancesInDateRange");
                     return model1.getDate().compareTo(model2.getDate());
                 }
             });
-            System.out.println("rrrrrrr");
-            System.out.println(filteredInstances);
+           
             return filteredInstances;
 
         } catch (Exception e) {
-            System.out.println("loppppppppppzzzzzzzzzz");
-            System.out.println(e);
+           
             return null;
         }
     }
@@ -234,9 +213,7 @@ System.out.println("instancesInDateRange");
                     yearMonthToConsumptionMap.put(yearMonth,
                             yearMonthToConsumptionMap.getOrDefault(yearMonth, 0.0) + instance.getConsomation());
                 }
-                System.out.println("olo");
-                System.out.println(yearMonthToConsumptionMap);
-
+               
                 // Create a new list with grouped instances
 
                 for (Map.Entry<String, Double> entry : yearMonthToConsumptionMap.entrySet()) {
@@ -263,12 +240,10 @@ System.out.println("instancesInDateRange");
                     filteredInstances.add(groupedInstance);
 
                 }
-                System.out.println(filteredInstances);
 
             }
 
             else if (((fetchRequest.getType()).equals("monthly")) || ((fetchRequest.getType()).equals("weekly"))) {
-                System.out.println("zarzjkrzrzmijzizaezajeziaezajiezejzeij");
                 Map<String, Double> yearMonthToConsumptionMap = new HashMap<>();
 
                 // Iterate through instances and group by year and month
@@ -277,15 +252,8 @@ System.out.println("instancesInDateRange");
                     Date date = instance.getDate();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println("rani len a bb");
-                    System.out.println(sdf);
+                    
                     String yearMonth = sdf.format(date);
-                    System.out.println(yearMonth);
 
                     // Update the consumption sum for the group
                     yearMonthToConsumptionMap.put(yearMonth,
@@ -319,12 +287,9 @@ System.out.println("instancesInDateRange");
                 }
 
             } else {
-                System.out.println("rani len a bb");
 
                 Map<String, Double> yearMonthToConsumptionMap = new HashMap<>();
-                System.out.println("qqqqqqqqqqqqqqqqqqqq");
-                System.out.println(instancesInDateRange);
-                System.out.println(instancesInDateRange);
+               
                 // Iterate through instances and group by year and month
                 for (ZoneConsomationModel instance : instancesInDateRange) {
 
@@ -332,15 +297,12 @@ System.out.println("instancesInDateRange");
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM  HH");
                     String yearMonth = sdf.format(date);
-                    System.out.println("rannnnnn");
-                    System.out.println(instance.getConsomation());
+              
                     // Update the consumption sum for the group
                     yearMonthToConsumptionMap.put(yearMonth,
                             yearMonthToConsumptionMap.getOrDefault(yearMonth, 0.0) + instance.getConsomation());
                 }
-                System.out.println("rani len a bb");
-                System.out.println(yearMonthToConsumptionMap);
-
+              
                 // Create a new list with grouped instances
 
                 for (Map.Entry<String, Double> entry : yearMonthToConsumptionMap.entrySet()) {
@@ -352,8 +314,7 @@ System.out.println("instancesInDateRange");
                     // Parse the year-month string back to a Date if needed
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM  HH");
                     Date date = sdf.parse(entry.getKey());
-                    System.out.println("date");
-                    System.out.println(date);
+                  
                     groupedInstance.setDate(date);
 
                     // Add the grouped instance to the new list
@@ -368,13 +329,11 @@ System.out.println("instancesInDateRange");
                     return model1.getDate().compareTo(model2.getDate());
                 }
             });
-            System.out.println("rrrrrrr");
-            System.out.println(filteredInstances);
+  
             return filteredInstances;
 
         } catch (Exception e) {
-            System.out.println("loppppppppppzzzzzzzzzz");
-            System.out.println(e);
+          
             return null;
         }
 
@@ -407,12 +366,10 @@ System.out.println("instancesInDateRange");
 
     private ZoneConsomationModel mergeModels(List<ZoneConsomationModel> models) {
         ZoneConsomationModel mergedModel = new ZoneConsomationModel();
-        System.out.println("zzzqaaaqqqqqqqqqqqqqqqq");
 
         // Keep values from one of the models
         ZoneConsomationModel modelToKeep = models.get(0);
-        System.out.println(modelToKeep);
-        System.out.println(models);
+       
         mergedModel.setId(modelToKeep.getId());
         mergedModel.setDate(modelToKeep.getDate());
         mergedModel.setZone(modelToKeep.getZone());
@@ -440,18 +397,15 @@ System.out.println("instancesInDateRange");
     }
 
     public ZoneConsomationModel findById(String id) {
-        System.out.println("id");
-        System.out.println("salem" + id);
+     
 
         return zoneConsomationRepository.findById(id).orElse(null);
     }
 
     public List<ZoneConsomationModel> getConsomatopForZone(String id) {
-        System.out.println("im here ");
         List<ZoneConsomationModel> liste = new ArrayList<>();
 
         // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
 
         List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository.findByZoneIdOrderByDateAsc(id);
         return zoneConsomation;

@@ -17,10 +17,7 @@ public class DailyService {
     
 
     public List<DailyModel> getDailysByZones(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
-
+       
         return dailyRepository.findByZone_Id(id);
     }
 

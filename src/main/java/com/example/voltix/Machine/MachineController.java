@@ -32,16 +32,14 @@ public class MachineController {
     @GetMapping("/getMachinesForCircuitBreaker/{id}")
 
     public ResponseEntity<List<MachineModel>> getMachinesByCircuitBreaker(@PathVariable String id) {
-        System.out.println("iiiiiiiiiiiii");
-        System.out.println("zzzzzzzzzzzz");
+     
         // CircuitBreakerModel
         // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
         List<MachineModel> machines = machineService.getMachinesByCircuitBreaker(id);
 
         // List<MachineModel> students =
         // machineService.getMachineofCircuitBreaker(circuitBreaker);
-        System.out.println("zzzzzzzzzzzz");
-        System.out.println(machines);
+      
 
         return ResponseEntity.ok(machines);
 
@@ -86,14 +84,11 @@ public class MachineController {
         MachineModel existingMachine = machineService.findById(machine.getId());
 
         if (existingMachine != null) {
-            System.out.println("zzzzzzzzz");
-            System.out.println(existingMachine);
-            System.out.println(machine);
+          
 
             machine.setId(machine.getId());
             machineService.updatMachine(machine);
-            System.out.println("zzzzzzzzz");
-            System.out.println(machine);
+            
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

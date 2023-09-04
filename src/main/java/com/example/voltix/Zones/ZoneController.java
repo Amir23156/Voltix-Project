@@ -20,15 +20,11 @@ import com.example.voltix.Weekly.WeeklyModel;
 import com.example.voltix.Weekly.WeeklyService;
 
 @RestController
-
+@RequestMapping("/api/zone")
 public class ZoneController {
 
-    private final ZoneService zoneService;
-   
     @Autowired
-    public ZoneController(ZoneService zoneService) {
-        this.zoneService = zoneService;
-    }
+    private ZoneService zoneService;
     @Autowired
     private DailyService dailyService;
     @Autowired
@@ -39,74 +35,68 @@ public class ZoneController {
     private MonthlyService monthlyService;
     @Autowired
     private AnnuallyService annuallyService;
-   
+
     @PostMapping("/AddZone")
     public ResponseEntity<ZoneModel> addZone(@RequestBody ZoneModel zone) {
         ZoneModel addedZone = zoneService.addZone(zone);
-    
+
         DailyModel daily = new DailyModel();
         daily.setZone(addedZone);
-        dailyService.addDaily(daily);  
+        dailyService.addDaily(daily);
 
         WeeklyModel weekly = new WeeklyModel();
         weekly.setZone(addedZone);
-        weeklyService.addWeekly(weekly);  
+        weeklyService.addWeekly(weekly);
 
         MonthlyModel monthly = new MonthlyModel();
         monthly.setZone(addedZone);
-        monthlyService.addMonthly(monthly);  
+        monthlyService.addMonthly(monthly);
 
         AnnuallyModel annually = new AnnuallyModel();
         annually.setZone(addedZone);
-        annuallyService.addAnnually(annually);  
+        annuallyService.addAnnually(annually);
 
         EnergyStatsModel energyStats = new EnergyStatsModel();
         energyStats.setZone(addedZone);
-        
+
         Random random = new Random();
-        energyStats.setDailyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99)); // Set random values for consumption
+        energyStats.setDailyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99)); // Set random values for
+                                                                                           // consumption
         energyStats.setMonthlyConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99));
         energyStats.setAnnualConsumption(roundToTwoDecimals(1 + random.nextDouble() * 99));
-       
+
         energyStatsService.addEnergyStats(energyStats);
-
-
-         
 
         return new ResponseEntity<>(addedZone, HttpStatus.ACCEPTED);
     }
-    
+
     // Method to round a double to two decimal places
     private double roundToTwoDecimals(double value) {
         return Math.round(value * 100.0) / 100.0;
     }
-    
 
     @GetMapping("/getZonesForBuilding/{id}")
 
     public ResponseEntity<List<ZoneModel>> getZonesForBuilding(@PathVariable String id) {
-        System.out.println("iiiiiiiiiiiii");
-        System.out.println("zzzzzzzzzzzz");
+       
         // CircuitBreakerModel
         // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
         List<ZoneModel> zones = zoneService.getZonesByBuildings(id);
 
         // List<MachineModel> students =
         // machineService.getMachineofCircuitBreaker(circuitBreaker);
-        System.out.println("zzzzzzzzzzzz");
-        System.out.println(zones);
+      
 
         return ResponseEntity.ok(zones);
 
     }
 
-    
-      @GetMapping("/FindAllZones")
-      public ResponseEntity<List<ZoneModel>> findAll() {
-      return new ResponseEntity<List<ZoneModel>>(zoneService.findAll(),
-      HttpStatus.ACCEPTED);
-      }
-     
+    @GetMapping("/FindAllZones")
+    public ResponseEntity<List<ZoneModel>> findAll() {
+        return new ResponseEntity<List<ZoneModel>>(zoneService.findAll(),
+                HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/FindAllZonesForBuilding/{buildingId}")
     public ResponseEntity<List<ZoneModel>> findAllZonesForBuilding(@PathVariable String buildingId) {
         List<ZoneModel> zones = zoneService.getZonesByBuildings(buildingId);

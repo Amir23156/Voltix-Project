@@ -30,26 +30,7 @@ public class AlerteController {
 
     }
 
-    /*
-     * @GetMapping("/getMachinesForCircuitBreaker/{id}")
-     * 
-     * public ResponseEntity<List<AlerteModel>>
-     * getMachinesByCircuitBreaker(@PathVariable String id) {
-     * System.out.println("iiiiiiiiiiiii");
-     * System.out.println("zzzzzzzzzzzz");
-     * // CircuitBreakerModel
-     * // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
-     * List<MachineModel> machines = machineService.getMachinesByCircuitBreaker(id);
-     * 
-     * // List<MachineModel> students =
-     * // machineService.getMachineofCircuitBreaker(circuitBreaker);
-     * System.out.println("zzzzzzzzzzzz");
-     * System.out.println(machines);
-     * 
-     * return ResponseEntity.ok(machines);
-     * 
-     * }
-     */
+   
 
     @GetMapping
     public List<AlerteModel> getAllAlerte() {
@@ -92,11 +73,10 @@ public class AlerteController {
         AlerteModel existingMachine = alerteService.findById(alerte.getId());
 
         if (existingMachine != null) {
-          
 
             alerte.setId(alerte.getId());
             alerteService.updatMachine(alerte);
-            
+
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -106,7 +86,6 @@ public class AlerteController {
     @PostMapping("/UpdateListe")
     public ResponseEntity<Void> updateMachineListe(@RequestBody List<AlerteWithCauseAndTotal> alerts) {
 
-       
         List<AlerteModel> alerteList = alerts.stream()
                 .map(AlerteWithCauseAndTotal::getAlerte)
                 .collect(Collectors.toList());

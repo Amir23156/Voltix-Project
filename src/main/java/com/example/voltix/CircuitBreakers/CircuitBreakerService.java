@@ -71,17 +71,12 @@ public class CircuitBreakerService {
     public CircuitBreakerModel updateCircuitBreaker(String id, CircuitBreakerModel updatedcircuitBreaker) {
         CircuitBreakerModel result = new CircuitBreakerModel();
         try {
-            System.out.println("im heeeeeerrrrrrrrrrrrrrr");
-            System.out.println(updatedcircuitBreaker.getId());
-            System.out.println(updatedcircuitBreaker.toString());
+          
             result = circuitBreakerRepository.save(updatedcircuitBreaker);
-            System.out.println(id);
-            System.out.println(result);
+        
         } catch (StackOverflowError e) {
-            System.out.println("ssssssssssssssssssssssssssssssss");
-            System.out.println(e);
+       
         }
-        // System.out.println(updatedcircuitBreaker);
         return result;
     }
 

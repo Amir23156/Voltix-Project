@@ -50,8 +50,7 @@ public class ZoneConsomationController {
 
     public ResponseEntity<List<ZoneConsomationModel>> getZoneConsomation(
             @RequestBody fetchDataModel startDate) {
-        System.out.println("frrrrrrrrrrrrr");
-        System.out.println("frrrrrrrrrrrrr");
+  
                 return ResponseEntity.ok(
                 zoneConsomationService.getZoneConsomationsBetweenDates(startDate));
 

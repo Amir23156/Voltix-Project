@@ -17,9 +17,7 @@ public class AnnuallyService {
     
 
     public List<AnnuallyModel> getAnnuallysByZones(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
+       
 
         return annuallyRepository.findByZone_Id(id);
     }

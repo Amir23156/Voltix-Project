@@ -30,8 +30,7 @@ public class ConsumptionMonitoringService {
             if (circuitBreaker.getLimitConsomation() != 0) {
                 List<AlerteModel> listes = alerteService.findByViewedAndCause_Id(false, circuitBreaker.getId());
                 if (listes.size() == 0) {
-                    System.out.println("kkkekkekkkkkkkk");
-                    System.out.println(circuitBreaker);
+                    
                     double totalConsumption = calculateTotalConsumption(circuitBreaker);
 
                     if (totalConsumption > circuitBreaker.getLimitConsomation()) {

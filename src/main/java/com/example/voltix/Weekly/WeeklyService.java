@@ -17,9 +17,7 @@ public class WeeklyService {
     
 
     public List<WeeklyModel> getWeeklysByZones(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
+      
 
         return weeklyRepository.findByZone_Id(id);
     }

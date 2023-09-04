@@ -24,21 +24,9 @@ public class HomePageController {
     @GetMapping("/findData")
 
     public ResponseEntity<HomePageData> getMosteConsumedZone() {
-        System.out.println("iiiiiiiiiiiii");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        System.out.println("zz<zzzzzzzzzz");
-        // CircuitBreakerModel
-        // circuitBreaker=circuitBreakerService.findCircuitBreakerById(id);
+      
         HomePageData homePageData = homeService.getHomeData();
 
-        // List<MachineModel> students =
-        // machineService.getMachineofCircuitBreaker(circuitBreaker);
 
         return ResponseEntity.ok(homePageData);
 

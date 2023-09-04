@@ -50,15 +50,7 @@ public class AlerteService {
         return alerteRepository.findByViewedAndCause_Id(false, causeId);
     }
 
-    /*
-     * public List<AlerteModel> getMachinesByCircuitBreaker(String id) {
-     * System.out.println("im here ");
-     * // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-     * System.out.println("im here ");
-     * 
-     * return alerteRepository.findByCircuitBreaker_Id(id);
-     * }
-     */
+   
     public void deleteMachineById(String id) {
         alerteRepository.deleteById(id);
     }

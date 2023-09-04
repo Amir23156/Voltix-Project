@@ -34,12 +34,10 @@ public class HomeService {
 
     public HomePageData getHomeData() {
         try {
-            System.out.println("im here ");
             HomePageData homePageData = new HomePageData();
             List<ZoneModel> zoneListe = zoneService.findAll();
             ZoneModel MostsZoneConsumed = zoneListe.get(0);
             double Consumption = 0;
-            // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
             for (ZoneModel zoneModel : zoneListe) {
                 List<ZoneConsomationModel> zoneConsomation = zoneConsomationRepository
                         .findByZoneIdOrderByDateAsc(zoneModel.getId());
@@ -73,8 +71,7 @@ public class HomeService {
             homePageData.setTotaleConsumption(total);
             return homePageData;
         } catch (Exception e) {
-            System.out.println("eezaaaaaaaaaaaaaaaaaa");
-            System.out.println(e);
+        
             return null;
         }
     }

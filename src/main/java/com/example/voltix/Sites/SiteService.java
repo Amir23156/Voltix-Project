@@ -47,15 +47,11 @@ public class SiteService {
     public SiteModel updateSite(String id, SiteModel updatedsite) {
         SiteModel result = new SiteModel();
         try {
-            System.out.println("im heeeeeerrrrrrrrrrrrrrr");
-            System.out.println(updatedsite.getId());
-            System.out.println(updatedsite.toString());
+         
             result = siteRepository.save(updatedsite);
-            System.out.println(id);
-            System.out.println(result);
+            
         } catch (StackOverflowError e) {
-            System.out.println("ssssssssssssssssssssssssssssssss");
-            System.out.println(e);
+            
         }
         // System.out.println(updatedcircuitBreaker);
         return result;

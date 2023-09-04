@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.voltix.Buildings.BuildingModel;
 import com.example.voltix.Machine.MachineModel;
 
 @RestController
+@RequestMapping("/api/cuircuitBreaker")
+
 public class CircuitBreakerController {
     @Autowired
     private CircuitBreakerService circuitBreakerService;
@@ -83,8 +86,7 @@ public class CircuitBreakerController {
     @PostMapping("/Updatelimit/{id}")
     public ResponseEntity<CircuitBreakerModel> updateCircuitBreakerLimit(@PathVariable String id,
             @RequestBody CircuitBreakerModel updatedcircuitBreaker) {
-        System.out.println("aSSSSSSSSSSSSSSSSS");
-        System.out.println(updatedcircuitBreaker);
+       
         CircuitBreakerModel existingcircuitBreaker = circuitBreakerService.findCircuitBreakerById(id);
         if (existingcircuitBreaker != null) {
             // Effectuer ici les mises à jour nécessaires sur l'objet existingZone en
@@ -93,8 +95,7 @@ public class CircuitBreakerController {
             existingcircuitBreaker.setLimitConsomation(updatedcircuitBreaker.getLimitConsomation());
             // Ajouter d'autres mises à jour pour les autres propriétés de ZoneModel si
             // nécessaire
-            System.out.println("ppppppppppppppppppssssssppppppp");
-            System.out.println(existingcircuitBreaker);
+          
             CircuitBreakerModel savedcircuitBreaker = circuitBreakerService.addCircuitBreaker(existingcircuitBreaker);
             return new ResponseEntity<>(savedcircuitBreaker, HttpStatus.OK);
         } else {

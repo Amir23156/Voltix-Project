@@ -30,10 +30,7 @@ public class ZoneService {
     }
 
     public List<ZoneModel> getZonesByBuildings(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
-
+     
         return zoneRepository.findByBuilding_Id(id);
     }
 

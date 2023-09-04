@@ -17,9 +17,7 @@ public class EnergyStatsService {
     
 
     public List<EnergyStatsModel> getEnergyStatssByZones(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
+       
 
         return energyStatsRepository.findByZone_Id(id);
     }

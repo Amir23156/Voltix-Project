@@ -32,7 +32,6 @@ public class ZoneConsomationAutomatique {
     @Scheduled(cron = "@hourly") // Déclencher tous les jours à minuit (00:00 AM)
     public void monitorConsumptionAndCreateAlerts() {
         List<ZoneModel> zones = zoneRepository.findAll();
-        System.out.println("ézééééééééééééééééé");
         for (ZoneModel zone : zones) {
 
             double totalConsumption = calculateTotalConsumption(zone);

@@ -27,9 +27,7 @@ public class MachineService {
     }
 
     public List<MachineModel> getMachinesByCircuitBreaker(String id) {
-        System.out.println("im here ");
-        // System.out.println(machineRepository.findByCircuitBreaker_Id(id));
-        System.out.println("im here ");
+     
 
         return machineRepository.findByCircuitBreaker_Id(id);
     }
@@ -49,8 +47,7 @@ public class MachineService {
     }
 
     public MachineModel findById(String id) {
-        System.out.println("id");
-        System.out.println("salem" + id);
+        
         return machineRepository.findById(id).orElse(null);
     }
 
